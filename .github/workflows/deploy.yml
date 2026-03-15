@@ -1,4 +1,4 @@
-name: CI and Release
+name: CI-Library and Publish
 
 on:
   push:
@@ -21,8 +21,8 @@ env:
   INFRA_REPOSITORY: vyracare/vyracare-infra-cloudfront-bucket
 
 jobs:
-  ci:
-    name: CI
+  ci-lib:
+    name: ci-lib
     runs-on: ubuntu-latest
 
     steps:
@@ -107,9 +107,9 @@ jobs:
           path: ${{ steps.resolve.outputs.workdir }}/dist/storybook
           if-no-files-found: error
 
-  release:
-    name: Release
-    needs: ci
+  publish:
+    name: publish
+    needs: ci-lib
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
@@ -168,31 +168,6 @@ jobs:
         run: |
           set -euo pipefail
           aws sts get-caller-identity >/dev/null
-
-      - name: Ensure CodeArtifact domain and repository
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if ! aws codeartifact describe-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1; then
-            aws codeartifact create-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1 || true
-            if ! aws codeartifact describe-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1; then
-              echo "Failed to access or create CodeArtifact domain $CODEARTIFACT_DOMAIN."
-              exit 1
-            fi
-          fi
-
-          if ! aws codeartifact describe-repository --domain "$CODEARTIFACT_DOMAIN" --repository "$CODEARTIFACT_REPO" --region "$AWS_REGION" >/dev/null 2>&1; then
-            aws codeartifact create-repository \
-              --domain "$CODEARTIFACT_DOMAIN" \
-              --repository "$CODEARTIFACT_REPO" \
-              --region "$AWS_REGION" >/dev/null 2>&1 || true
-
-            if ! aws codeartifact describe-repository --domain "$CODEARTIFACT_DOMAIN" --repository "$CODEARTIFACT_REPO" --region "$AWS_REGION" >/dev/null 2>&1; then
-              echo "Failed to access or create CodeArtifact repository $CODEARTIFACT_REPO."
-              exit 1
-            fi
-          fi
 
       - name: Detect bucket and CloudFront
         id: detect_infra
