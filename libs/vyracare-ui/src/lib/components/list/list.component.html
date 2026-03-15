@@ -1,0 +1,40 @@
+<ul class="vc-list">
+  @for (item of items; track item.title) {
+    <li class="vc-list__item">
+      @if (item.href) {
+        <a
+          class="vc-list__link"
+          [href]="item.href"
+          [attr.target]="item.target ?? null"
+          [attr.rel]="item.target === '_blank' ? 'noopener noreferrer' : null"
+        >
+          @if (item.icon) {
+            <span class="vc-list__icon">
+              <vc-icon [name]="item.icon" size="sm" [decorative]="true"></vc-icon>
+            </span>
+          }
+          <div class="vc-list__content">
+            <span class="vc-list__title">{{ item.title }}</span>
+            @if (item.description) {
+              <span class="vc-list__description">{{ item.description }}</span>
+            }
+          </div>
+        </a>
+      } @else {
+        <div class="vc-list__link">
+          @if (item.icon) {
+            <span class="vc-list__icon">
+              <vc-icon [name]="item.icon" size="sm" [decorative]="true"></vc-icon>
+            </span>
+          }
+          <div class="vc-list__content">
+            <span class="vc-list__title">{{ item.title }}</span>
+            @if (item.description) {
+              <span class="vc-list__description">{{ item.description }}</span>
+            }
+          </div>
+        </div>
+      }
+    </li>
+  }
+</ul>

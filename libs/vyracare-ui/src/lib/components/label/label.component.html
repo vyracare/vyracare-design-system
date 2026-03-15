@@ -1,0 +1,10 @@
+<label class="vc-label" [attr.for]="forId">
+  @if (text) {
+    <span>{{ text }}</span>
+  } @else {
+    <ng-content></ng-content>
+  }
+  @if (required) {
+    <span class="vc-label__required">*</span>
+  }
+</label>

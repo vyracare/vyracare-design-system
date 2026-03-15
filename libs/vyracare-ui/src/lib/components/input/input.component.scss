@@ -1,0 +1,27 @@
+@use '../../styles/mixins' as mixins;
+
+.vc-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .vc-label {
+    @include mixins.label-base;
+
+    &__required {
+      color: var(--vc-color-state-danger-text);
+    }
+  }
+
+  &__field {
+    @include mixins.input-base;
+  }
+
+  &__hint {
+    @include mixins.helper-text;
+  }
+
+  &__error {
+    @include mixins.helper-text(var(--vc-color-state-danger-text));
+  }
+}

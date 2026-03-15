@@ -1,0 +1,55 @@
+<section class="page">
+  <div class="page__header">
+    <div>
+      <vc-heading [level]="2">Tipografia</vc-heading>
+      <vc-text [muted]="true">Escala tipografica, familias e pesos usados pelo design system.</vc-text>
+    </div>
+  </div>
+
+  <div class="type-section">
+    <vc-heading [level]="3">Familias</vc-heading>
+    <div class="type-grid">
+      @for (family of fontFamilies; track family.token) {
+        <div class="type-card">
+          <vc-text size="sm" [muted]="true">{{ family.token }}</vc-text>
+          <div class="type-family" [style.font-family]="family.value">
+            {{ family.label }}
+          </div>
+          <vc-text>{{ family.value }}</vc-text>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="type-section">
+    <vc-heading [level]="3">Escala</vc-heading>
+    <div class="type-list">
+      @for (item of scale; track item.token) {
+        <div class="type-card type-card--row">
+          <div class="type-meta">
+            <vc-text size="sm" [muted]="true">{{ item.token }}</vc-text>
+            <vc-text>{{ item.label }}</vc-text>
+          </div>
+          <div class="type-preview" [style.font-size]="'var(' + item.token + ')'" [style.font-family]="'var(--vc-font-heading)'">
+            {{ item.preview }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="type-section">
+    <vc-heading [level]="3">Pesos</vc-heading>
+    <div class="type-grid">
+      @for (weight of weights; track weight.token) {
+        <div class="type-card">
+          <vc-text size="sm" [muted]="true">{{ weight.token }}</vc-text>
+          <div class="type-weight" [style.font-weight]="'var(' + weight.token + ')'">
+            {{ weight.label }}
+          </div>
+          <vc-text>{{ weight.value }}</vc-text>
+        </div>
+      }
+    </div>
+  </div>
+</section>

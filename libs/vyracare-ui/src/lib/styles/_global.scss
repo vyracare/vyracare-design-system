@@ -1,0 +1,95 @@
+@use 'sass:map';
+@use 'tokens/tokens' as token-data;
+
+:root {
+  /* Brand colors */
+  --vc-color-brand-primary: #{map.get(token-data.$vc-colors, brand-primary)};
+  --vc-color-brand-secondary: #{map.get(token-data.$vc-colors, brand-secondary)};
+  --vc-color-brand-accent: #{map.get(token-data.$vc-colors, brand-accent)};
+
+  /* Neutral colors */
+  --vc-color-neutral-900: #{map.get(token-data.$vc-colors, neutral-900)};
+  --vc-color-neutral-800: #{map.get(token-data.$vc-colors, neutral-800)};
+  --vc-color-neutral-700: #{map.get(token-data.$vc-colors, neutral-700)};
+  --vc-color-neutral-600: #{map.get(token-data.$vc-colors, neutral-600)};
+  --vc-color-neutral-500: #{map.get(token-data.$vc-colors, neutral-500)};
+  --vc-color-neutral-400: #{map.get(token-data.$vc-colors, neutral-400)};
+  --vc-color-neutral-300: #{map.get(token-data.$vc-colors, neutral-300)};
+  --vc-color-neutral-200: #{map.get(token-data.$vc-colors, neutral-200)};
+  --vc-color-neutral-100: #{map.get(token-data.$vc-colors, neutral-100)};
+
+  /* Semantic colors */
+  --vc-color-primary: #{map.get(token-data.$vc-global-colors, primary)};
+  --vc-color-accent: #{map.get(token-data.$vc-global-colors, accent)};
+  --vc-color-info: #{map.get(token-data.$vc-global-colors, info)};
+  --vc-color-background: #{map.get(token-data.$vc-global-colors, background)};
+  --vc-color-surface: #{map.get(token-data.$vc-global-colors, surface)};
+  --vc-color-border: #{map.get(token-data.$vc-global-colors, border)};
+  --vc-color-stroke: #{map.get(token-data.$vc-global-colors, stroke)};
+  --vc-color-gradient-primary: #{map.get(token-data.$vc-global-colors, gradient-primary)};
+  --vc-color-text-primary: #{map.get(token-data.$vc-global-colors, text-primary)};
+  --vc-color-text-strong: #{map.get(token-data.$vc-global-colors, text-strong)};
+  --vc-color-text-medium: #{map.get(token-data.$vc-global-colors, text-medium)};
+  --vc-color-text-muted: #{map.get(token-data.$vc-global-colors, text-muted)};
+  --vc-color-text-subtle: #{map.get(token-data.$vc-global-colors, text-subtle)};
+  --vc-color-text-support: #{map.get(token-data.$vc-global-colors, text-support)};
+  --vc-color-text-navigation: #{map.get(token-data.$vc-global-colors, text-navigation)};
+  --vc-color-highlight: #{map.get(token-data.$vc-global-colors, highlight)};
+  --vc-color-highlight-strong: #{map.get(token-data.$vc-global-colors, highlight-strong)};
+  --vc-color-highlight-warm: #{map.get(token-data.$vc-global-colors, highlight-warm)};
+  --vc-color-highlight-cool: #{map.get(token-data.$vc-global-colors, highlight-cool)};
+  --vc-color-state-danger: #{map.get(token-data.$vc-global-colors, state-danger)};
+  --vc-color-state-danger-bg: #{map.get(token-data.$vc-global-colors, state-danger-bg)};
+  --vc-color-state-danger-text: #{map.get(token-data.$vc-global-colors, state-danger-text)};
+  --vc-color-state-success-bg: #{map.get(token-data.$vc-global-colors, state-success-bg)};
+  --vc-color-state-success-text: #{map.get(token-data.$vc-global-colors, state-success-text)};
+
+  /* Alias colors */
+  --vc-color-action-primary: var(--vc-color-primary);
+  --vc-color-action-secondary: var(--vc-color-accent);
+  --vc-color-action-info: var(--vc-color-info);
+  --vc-color-surface-default: var(--vc-color-surface);
+  --vc-color-surface-muted: var(--vc-color-background);
+  --vc-color-border-default: var(--vc-color-border);
+  --vc-color-border-strong: var(--vc-color-stroke);
+  --vc-color-text-default: var(--vc-color-text-primary);
+  --vc-color-text-weak: var(--vc-color-text-muted);
+  --vc-color-highlight-default: var(--vc-color-highlight);
+  --vc-color-highlight-strong: var(--vc-color-highlight-strong);
+
+  /* Feedback colors */
+  --vc-color-success: #{map.get(token-data.$vc-global-colors, success)};
+  --vc-color-warning: #{map.get(token-data.$vc-global-colors, warning)};
+  --vc-color-danger: #{map.get(token-data.$vc-global-colors, danger)};
+
+  /* Spacing scale */
+  --vc-space-xs: #{map.get(token-data.$vc-spacing, xs)};
+  --vc-space-sm: #{map.get(token-data.$vc-spacing, sm)};
+  --vc-space-md: #{map.get(token-data.$vc-spacing, md)};
+  --vc-space-lg: #{map.get(token-data.$vc-spacing, lg)};
+  --vc-space-xl: #{map.get(token-data.$vc-spacing, xl)};
+  --vc-space-2xl: #{map.get(token-data.$vc-spacing, 2xl)};
+  --vc-space-3xl: #{map.get(token-data.$vc-spacing, 3xl)};
+
+  /* Font families */
+  --vc-font-base: #{map.get(token-data.$vc-fonts, base)};
+  --vc-font-heading: #{map.get(token-data.$vc-fonts, heading)};
+
+  /* Font sizes */
+  --vc-font-size-xs: #{map.get(token-data.$vc-font-sizes, xs)};
+  --vc-font-size-sm: #{map.get(token-data.$vc-font-sizes, sm)};
+  --vc-font-size-md: #{map.get(token-data.$vc-font-sizes, md)};
+  --vc-font-size-lg: #{map.get(token-data.$vc-font-sizes, lg)};
+  --vc-font-size-xl: #{map.get(token-data.$vc-font-sizes, xl)};
+  --vc-font-size-2xl: #{map.get(token-data.$vc-font-sizes, 2xl)};
+  --vc-font-size-3xl: #{map.get(token-data.$vc-font-sizes, 3xl)};
+
+  /* Font weights */
+  --vc-font-weight-regular: #{map.get(token-data.$vc-font-weights, regular)};
+  --vc-font-weight-medium: #{map.get(token-data.$vc-font-weights, medium)};
+  --vc-font-weight-semibold: #{map.get(token-data.$vc-font-weights, semibold)};
+  --vc-font-weight-bold: #{map.get(token-data.$vc-font-weights, bold)};
+
+  /* Grid tokens */
+  --vc-grid-gutter: #{map.get(token-data.$vc-grid, gutter)};
+}

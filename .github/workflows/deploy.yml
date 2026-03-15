@@ -1,0 +1,355 @@
+name: CI and Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '20.x'
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: '510253726006'
+  CODEARTIFACT_DOMAIN: vyracare-design-system
+  CODEARTIFACT_REPO: vyracare-design-system
+  S3_BUCKET_NAME: vyracare-design-system-storybook
+  INFRA_REPOSITORY: vyracare/vyracare-infra-cloudfront-bucket
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve workdir
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE"
+          if [ -f "$root/package.json" ]; then
+            echo "workdir=$root" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          pkg=$(find "$root" -maxdepth 3 -name package.json -print -quit)
+          if [ -z "$pkg" ]; then
+            echo "package.json not found under $root"
+            exit 1
+          fi
+
+          echo "workdir=$(dirname "$pkg")" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ steps.resolve.outputs.workdir }}/package-lock.json
+
+      - name: Ensure package-lock.json
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        env:
+          NPM_CONFIG_PRODUCTION: 'false'
+          NPM_CONFIG_OMIT: ''
+          NODE_ENV: development
+        run: |
+          set -euo pipefail
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json not found. Generating lockfile..."
+            npm install --package-lock-only --legacy-peer-deps
+          fi
+
+      - name: Install dependencies
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        env:
+          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+          NPM_CONFIG_PRODUCTION: 'false'
+          NPM_CONFIG_OMIT: ''
+        run: npm ci --legacy-peer-deps --include=dev --omit=optional --omit=peer
+
+      - name: Run unit tests
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run test
+
+      - name: Build library
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run build
+
+      - name: Build Storybook
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run storybook:build
+
+      - name: Install Playwright browser
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Storybook tests
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run test-storybook:ci
+
+      - name: Run visual tests
+        if: ${{ secrets.CHROMATIC_PROJECT_TOKEN != '' }}
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: npm run visual-tests
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ${{ steps.resolve.outputs.workdir }}/dist
+          if-no-files-found: error
+
+      - name: Upload Storybook artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook
+          path: ${{ steps.resolve.outputs.workdir }}/dist/storybook
+          if-no-files-found: error
+
+  release:
+    name: Release
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve workdir
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE"
+          if [ -f "$root/package.json" ]; then
+            echo "workdir=$root" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          pkg=$(find "$root" -maxdepth 3 -name package.json -print -quit)
+          if [ -z "$pkg" ]; then
+            echo "package.json not found under $root"
+            exit 1
+          fi
+
+          echo "workdir=$(dirname "$pkg")" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ steps.resolve.outputs.workdir }}/package-lock.json
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Check AWS CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws --version
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.2
+
+      - name: Validate AWS credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws sts get-caller-identity >/dev/null
+
+      - name: Ensure CodeArtifact domain and repository
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if ! aws codeartifact describe-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1; then
+            aws codeartifact create-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1 || true
+            if ! aws codeartifact describe-domain --domain "$CODEARTIFACT_DOMAIN" --region "$AWS_REGION" >/dev/null 2>&1; then
+              echo "Failed to access or create CodeArtifact domain $CODEARTIFACT_DOMAIN."
+              exit 1
+            fi
+          fi
+
+          if ! aws codeartifact describe-repository --domain "$CODEARTIFACT_DOMAIN" --repository "$CODEARTIFACT_REPO" --region "$AWS_REGION" >/dev/null 2>&1; then
+            aws codeartifact create-repository \
+              --domain "$CODEARTIFACT_DOMAIN" \
+              --repository "$CODEARTIFACT_REPO" \
+              --region "$AWS_REGION" >/dev/null 2>&1 || true
+
+            if ! aws codeartifact describe-repository --domain "$CODEARTIFACT_DOMAIN" --repository "$CODEARTIFACT_REPO" --region "$AWS_REGION" >/dev/null 2>&1; then
+              echo "Failed to access or create CodeArtifact repository $CODEARTIFACT_REPO."
+              exit 1
+            fi
+          fi
+
+      - name: Detect bucket and CloudFront
+        id: detect_infra
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if aws s3api head-bucket --bucket "$S3_BUCKET_NAME" >/dev/null 2>&1; then
+            s3_exists=true
+          else
+            s3_exists=false
+          fi
+
+          cloudfront_id=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Origins.Items[0].DomainName, '${S3_BUCKET_NAME}')].Id | [0]" --output text)
+          if [ -z "$cloudfront_id" ] || [ "$cloudfront_id" = "None" ]; then
+            cloudfront_id=""
+          fi
+
+          echo "S3 exists: $s3_exists"
+          echo "CloudFront ID: ${cloudfront_id:-none}"
+
+          if [ "$s3_exists" = true ] && [ -n "$cloudfront_id" ]; then
+            echo "need_infra=false" >> "$GITHUB_OUTPUT"
+            echo "cloudfront_distribution_id=$cloudfront_id" >> "$GITHUB_OUTPUT"
+            echo "CLOUDFRONT_DISTRIBUTION_ID=$cloudfront_id" >> "$GITHUB_ENV"
+          else
+            echo "need_infra=true" >> "$GITHUB_OUTPUT"
+            echo "cloudfront_distribution_id=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate infra repository token
+        if: steps.detect_infra.outputs.need_infra == 'true'
+        shell: bash
+        env:
+          GH_INFRA_REPO_TOKEN: ${{ secrets.GH_INFRA_REPO_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_INFRA_REPO_TOKEN:-}" ]; then
+            echo "GH_INFRA_REPO_TOKEN secret is required to checkout $INFRA_REPOSITORY."
+            exit 1
+          fi
+
+      - name: Checkout infra cloudfront bucket
+        if: steps.detect_infra.outputs.need_infra == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.INFRA_REPOSITORY }}
+          token: ${{ secrets.GH_INFRA_REPO_TOKEN }}
+          path: infra-cloudfront
+
+      - name: Provision S3 and CloudFront with Terraform
+        if: steps.detect_infra.outputs.need_infra == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd "$GITHUB_WORKSPACE/infra-cloudfront"
+          terraform init
+
+          comment="${S3_BUCKET_NAME} em Angular CloudFront"
+
+          if aws s3api head-bucket --bucket "$S3_BUCKET_NAME" >/dev/null 2>&1; then
+            terraform import aws_s3_bucket.app_bucket "$S3_BUCKET_NAME" || true
+          fi
+
+          terraform apply -auto-approve \
+            -var "project_name=$S3_BUCKET_NAME" \
+            -var "region=$AWS_REGION" \
+            -var "cloudfront_comment=$comment"
+
+          cloudfront_id=$(terraform output -raw cloudfront_distribution_id)
+          echo "CLOUDFRONT_DISTRIBUTION_ID=$cloudfront_id" >> "$GITHUB_ENV"
+
+      - name: Ensure package-lock.json
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        env:
+          NPM_CONFIG_PRODUCTION: 'false'
+          NPM_CONFIG_OMIT: ''
+          NODE_ENV: development
+        run: |
+          set -euo pipefail
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json not found. Generating lockfile..."
+            npm install --package-lock-only --legacy-peer-deps
+          fi
+
+      - name: Use npmjs registry for install
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm config set registry https://registry.npmjs.org/
+
+      - name: Install dependencies
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        env:
+          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+          NPM_CONFIG_PRODUCTION: 'false'
+          NPM_CONFIG_OMIT: ''
+        run: npm ci --legacy-peer-deps --include=dev --omit=optional --omit=peer
+
+      - name: Build library
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run build
+
+      - name: Build Storybook
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run storybook:build
+
+      - name: Login to CodeArtifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws codeartifact login \
+            --tool npm \
+            --domain "$CODEARTIFACT_DOMAIN" \
+            --domain-owner "$AWS_ACCOUNT_ID" \
+            --repository "$CODEARTIFACT_REPO" \
+            --region "$AWS_REGION"
+
+      - name: Publish to CodeArtifact
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run release
+
+      - name: Deploy Storybook to S3
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws s3 sync "${{ steps.resolve.outputs.workdir }}/dist/storybook" "s3://$S3_BUCKET_NAME" --delete
+
+      - name: Invalidate CloudFront cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "${CLOUDFRONT_DISTRIBUTION_ID:-}" ]; then
+            aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+          else
+            echo "Skipping CloudFront invalidation (distribution not set)."
+          fi

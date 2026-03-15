@@ -1,0 +1,38 @@
+@use '../../styles/mixins' as mixins;
+
+.vc-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .vc-label {
+    @include mixins.label-base;
+  }
+
+  &__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__input {
+    @include mixins.input-base;
+    width: 100%;
+    padding-left: 2.5rem;
+  }
+
+  vc-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--vc-color-text-muted);
+  }
+
+  &__hint {
+    @include mixins.helper-text;
+  }
+
+  &__error {
+    @include mixins.helper-text(var(--vc-color-state-danger-text));
+  }
+}

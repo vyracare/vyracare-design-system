@@ -1,0 +1,24 @@
+.vc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vc-icon-size, 1rem);
+  line-height: 1;
+  color: var(--vc-color-text-primary);
+
+  &--sm {
+    --vc-icon-size: 0.875rem;
+  }
+
+  &--md {
+    --vc-icon-size: 1rem;
+  }
+
+  &--lg {
+    --vc-icon-size: 1.25rem;
+  }
+
+  &--xl {
+    --vc-icon-size: 1.6rem;
+  }
+}

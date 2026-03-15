@@ -1,0 +1,8 @@
+<button class="vc-button__inner" [type]="type" [disabled]="disabled || loading">
+  @if (loading) {
+    <span class="vc-button__spinner"></span>
+  }
+  <span class="vc-button__label">
+    <ng-content></ng-content>
+  </span>
+</button>

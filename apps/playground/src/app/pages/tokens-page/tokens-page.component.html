@@ -1,0 +1,51 @@
+<section class="page">
+  <div class="page__header">
+    <div>
+      <vc-heading [level]="2">Tokens</vc-heading>
+      <vc-text [muted]="true">Paleta base e aliases de cor aplicados no design system.</vc-text>
+    </div>
+  </div>
+
+  <div class="tokens__section">
+    <vc-heading [level]="3">Tokens (mapa)</vc-heading>
+    @for (palette of palettes; track palette.title) {
+      <div class="tokens__group">
+        <vc-heading [level]="4">{{ palette.title }}</vc-heading>
+        <div class="tokens">
+          @for (color of palette.colors; track color.name) {
+            <div class="tokens__card">
+              <span class="tokens__swatch" [style.background]="color.value"></span>
+              <div>
+                <vc-text size="sm" [muted]="true">{{ color.name }}</vc-text>
+                <vc-text>{{ color.value }}</vc-text>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="tokens__section">
+    <vc-heading [level]="3">Tokens ativos</vc-heading>
+    <vc-text [muted]="true">
+      Valores lidos diretamente das CSS variables carregadas no playground.
+    </vc-text>
+    @for (group of groups; track group.title) {
+      <div class="tokens__group">
+        <vc-heading [level]="4">{{ group.title }}</vc-heading>
+        <div class="tokens">
+          @for (token of group.tokens; track token) {
+            <div class="tokens__card">
+              <span class="tokens__swatch" [style.background]="values.get(token)"></span>
+              <div>
+                <vc-text size="sm" [muted]="true">{{ token }}</vc-text>
+                <vc-text>{{ values.get(token) }}</vc-text>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>

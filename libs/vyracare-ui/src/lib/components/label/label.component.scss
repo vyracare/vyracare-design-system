@@ -1,0 +1,8 @@
+@use '../../styles/mixins' as mixins;
+
+.vc-label {
+  @include mixins.label-base;
+  &__required {
+    color: var(--vc-color-state-danger-text);
+  }
+}

@@ -1,0 +1,58 @@
+$vc-breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+.vc-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--vc-space-xl);
+  max-width: 1200px;
+}
+
+.vc-container--fluid {
+  max-width: none;
+}
+
+.vc-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--vc-grid-gutter) / 2);
+  margin-right: calc(-1 * var(--vc-grid-gutter) / 2);
+}
+
+.vc-col {
+  flex: 1 0 0;
+  padding-left: calc(var(--vc-grid-gutter) / 2);
+  padding-right: calc(var(--vc-grid-gutter) / 2);
+}
+
+@for $i from 1 through 12 {
+  .vc-col-#{$i} {
+    flex: 0 0 percentage($i / 12);
+    max-width: percentage($i / 12);
+    padding-left: calc(var(--vc-grid-gutter) / 2);
+    padding-right: calc(var(--vc-grid-gutter) / 2);
+  }
+}
+
+@each $name, $size in $vc-breakpoints {
+  @media (min-width: $size) {
+    @for $i from 1 through 12 {
+      .vc-col-#{$name}-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+        padding-left: calc(var(--vc-grid-gutter) / 2);
+        padding-right: calc(var(--vc-grid-gutter) / 2);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .vc-container {
+    padding: 0 var(--vc-space-lg);
+  }
+}

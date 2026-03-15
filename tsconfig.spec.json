@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc/spec",
+    "types": ["jest", "node"],
+    "emitDecoratorMetadata": true
+  },
+  "files": ["setup-jest.ts"],
+  "include": [
+    "libs/vyracare-ui/src/**/*.spec.ts",
+    "libs/vyracare-ui/src/**/*.d.ts",
+    "apps/playground/src/**/*.spec.ts",
+    "apps/playground/src/**/*.d.ts"
+  ]
+}

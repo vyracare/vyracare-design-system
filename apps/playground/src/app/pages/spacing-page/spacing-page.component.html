@@ -1,0 +1,39 @@
+<section class="page">
+  <div class="page__header">
+    <div>
+      <vc-heading [level]="2">Espacamento</vc-heading>
+      <vc-text [muted]="true">Escala de spacing usada para gaps, paddings e composicao dos layouts.</vc-text>
+    </div>
+  </div>
+
+  <div class="space-section">
+    <vc-heading [level]="3">Escala</vc-heading>
+    <div class="space-grid">
+      @for (space of spaces; track space.token) {
+        <div class="space-card">
+          <vc-text size="sm" [muted]="true">{{ space.token }}</vc-text>
+          <div class="space-ruler">
+            <span class="space-ruler__bar" [style.width]="'var(' + space.token + ')'"></span>
+          </div>
+          <vc-text>{{ space.label }} / {{ space.value }}</vc-text>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="space-section">
+    <vc-heading [level]="3">Aplicacao</vc-heading>
+    <div class="space-stack">
+      @for (space of spaces; track space.token) {
+        <div class="space-stack__example">
+          <vc-text size="sm" [muted]="true">{{ space.token }}</vc-text>
+          <div class="space-stack__items" [style.gap]="'var(' + space.token + ')'">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  },
+  "include": ["libs/vyracare-ui/src/**/*.ts"],
+  "exclude": ["libs/vyracare-ui/src/**/*.spec.ts", "libs/vyracare-ui/src/**/*.stories.ts"]
+}

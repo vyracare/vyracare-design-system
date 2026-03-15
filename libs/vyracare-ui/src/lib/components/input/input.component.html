@@ -1,0 +1,28 @@
+<div class="vc-input">
+  @if (label) {
+    <label class="vc-label" [attr.for]="id">
+      <span>{{ label }}</span>
+      @if (required) {
+        <span class="vc-label__required">*</span>
+      }
+    </label>
+  }
+  <input
+    class="vc-input__field"
+    [id]="id"
+    [type]="type"
+    [attr.inputmode]="inputMode"
+    [attr.placeholder]="placeholder"
+    [disabled]="disabled"
+    [value]="value"
+    [class.invalid]="!!error"
+    (input)="handleInput($event)"
+    (blur)="markTouched()"
+  />
+  @if (hint && !error) {
+    <small class="vc-input__hint">{{ hint }}</small>
+  }
+  @if (error) {
+    <small class="vc-input__error">{{ error }}</small>
+  }
+</div>

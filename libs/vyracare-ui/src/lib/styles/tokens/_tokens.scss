@@ -1,0 +1,87 @@
+/* Primitive color palette */
+$vc-colors: (
+  brand-primary: #1f4fd6,
+  brand-secondary: #0b1f52,
+  brand-accent: #f5a524,
+  neutral-900: #0b0f1a,
+  neutral-800: #1b2238,
+  neutral-700: #2c3551,
+  neutral-600: #4a5578,
+  neutral-500: #667199,
+  neutral-400: #8d97b6,
+  neutral-300: #b3bad0,
+  neutral-200: #d6dbea,
+  neutral-100: #eef1f8
+);
+
+/* Semantic and contextual color tokens */
+$vc-global-colors: (
+  primary: #5a3be7,
+  accent: #ff6c88,
+  info: #5ac4ff,
+  background: #f6f4ff,
+  surface: #ffffff,
+  border: #d6dbee,
+  stroke: rgba(90, 59, 231, 0.12),
+  gradient-primary: #6e4ef5,
+  text-primary: #333b60,
+  text-strong: #1f2233,
+  text-medium: #223040,
+  text-muted: #6f7494,
+  text-subtle: #5a6174,
+  text-support: #8a8fb5,
+  text-navigation: #4a5276,
+  highlight: #f4f1ff,
+  highlight-strong: #ebe5ff,
+  highlight-warm: #f8f4ff,
+  highlight-cool: #edf6ff,
+  state-danger: #f3749a,
+  state-danger-bg: #ffecec,
+  state-danger-text: #b23547,
+  state-success-bg: #e8f7ef,
+  state-success-text: #2f7f5f,
+  success: #2fb97f,
+  warning: #f5a524,
+  danger: #ea4f4f
+);
+
+/* Spacing scale */
+$vc-spacing: (
+  xs: 4px,
+  sm: 8px,
+  md: 12px,
+  lg: 16px,
+  xl: 24px,
+  2xl: 32px,
+  3xl: 40px
+);
+
+/* Font families */
+$vc-fonts: (
+  base: "'Plus Jakarta Sans', 'Segoe UI', sans-serif",
+  heading: "'Clash Display', 'Segoe UI', sans-serif"
+);
+
+/* Type scale */
+$vc-font-sizes: (
+  xs: 12px,
+  sm: 14px,
+  md: 16px,
+  lg: 18px,
+  xl: 22px,
+  2xl: 28px,
+  3xl: 34px
+);
+
+/* Font weights */
+$vc-font-weights: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700
+);
+
+/* Grid configuration tokens */
+$vc-grid: (
+  gutter: 24px
+);

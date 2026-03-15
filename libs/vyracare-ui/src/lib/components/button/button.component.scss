@@ -1,0 +1,107 @@
+:host {
+  display: inline-flex;
+  --vc-button-bg: transparent;
+  --vc-button-bg-hover: var(--vc-button-bg);
+  --vc-button-color: var(--vc-color-primary);
+  --vc-button-border: transparent;
+  --vc-button-shadow: none;
+  --vc-button-shadow-hover: var(--vc-button-shadow);
+  --vc-spinner-track: rgba(255, 255, 255, 0.4);
+  --vc-spinner-head: #ffffff;
+
+  .vc-button__inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--vc-space-sm);
+    padding: 11px 22px;
+    border-radius: 12px;
+    border: 1px solid var(--vc-button-border);
+    font-family: var(--vc-font-base);
+    font-weight: var(--vc-font-weight-semibold);
+    font-size: var(--vc-font-size-md);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    background: var(--vc-button-bg);
+    color: var(--vc-button-color);
+    box-shadow: var(--vc-button-shadow);
+
+    &:not(:disabled):hover {
+      background: var(--vc-button-bg-hover);
+      box-shadow: var(--vc-button-shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    &:not(:disabled):active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .vc-button__spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--vc-spinner-track);
+      border-top-color: var(--vc-spinner-head);
+      animation: spin 0.8s linear infinite;
+    }
+  }
+
+  &.vc-button--sm .vc-button__inner {
+    padding: 8px 16px;
+    font-size: var(--vc-font-size-sm);
+  }
+
+  &.vc-button--lg .vc-button__inner {
+    padding: 13px 26px;
+    font-size: var(--vc-font-size-lg);
+  }
+
+  &.vc-button--primary .vc-button__inner {
+    --vc-button-bg: linear-gradient(135deg, var(--vc-color-primary), var(--vc-color-accent));
+    --vc-button-bg-hover: linear-gradient(135deg, #6f50f1, #ff7f9a);
+    --vc-button-color: #ffffff;
+    --vc-button-shadow: 0 16px 26px rgba(90, 59, 231, 0.28);
+    --vc-button-shadow-hover: 0 18px 30px rgba(90, 59, 231, 0.36);
+  }
+
+  &.vc-button--secondary .vc-button__inner {
+    --vc-button-bg: linear-gradient(135deg, var(--vc-color-primary), var(--vc-color-info));
+    --vc-button-bg-hover: linear-gradient(135deg, #6a5bff, #6fd1ff);
+    --vc-button-color: #ffffff;
+    --vc-button-shadow: 0 16px 28px rgba(82, 140, 255, 0.28);
+    --vc-button-shadow-hover: 0 18px 32px rgba(82, 140, 255, 0.36);
+  }
+
+  &.vc-button--tertiary .vc-button__inner {
+    --vc-button-bg: var(--vc-color-surface);
+    --vc-button-bg-hover: var(--vc-color-highlight);
+    --vc-button-color: var(--vc-color-primary);
+    --vc-button-border: rgba(90, 59, 231, 0.35);
+    --vc-button-shadow: 0 10px 20px rgba(90, 59, 231, 0.1);
+    --vc-button-shadow-hover: 0 12px 24px rgba(90, 59, 231, 0.16);
+    --vc-spinner-track: rgba(90, 59, 231, 0.2);
+    --vc-spinner-head: var(--vc-color-primary);
+  }
+
+  &.vc-button--ghost .vc-button__inner {
+    --vc-button-bg: transparent;
+    --vc-button-bg-hover: rgba(90, 59, 231, 0.08);
+    --vc-button-color: var(--vc-color-primary);
+    --vc-button-border: transparent;
+    --vc-spinner-track: rgba(90, 59, 231, 0.2);
+    --vc-spinner-head: var(--vc-color-primary);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

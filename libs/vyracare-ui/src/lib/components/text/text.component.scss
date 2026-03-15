@@ -1,0 +1,16 @@
+@use '../../styles/mixins' as mixins;
+
+.vc-text {
+  @include mixins.body-text(1rem, var(--vc-color-text-medium));
+  &--sm {
+    font-size: 0.85rem;
+  }
+
+  &--lg {
+    font-size: 1.1rem;
+  }
+
+  &--muted {
+    color: var(--vc-color-text-muted);
+  }
+}

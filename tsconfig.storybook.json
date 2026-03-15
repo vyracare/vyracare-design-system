@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "moduleResolution": "bundler"
+  },
+  "include": ["libs/vyracare-ui/src/**/*.ts", "libs/vyracare-ui/.storybook/**/*.ts"],
+  "exclude": []
+}

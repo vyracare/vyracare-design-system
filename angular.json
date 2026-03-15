@@ -1,0 +1,80 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "design-system": {
+      "projectType": "library",
+      "root": "libs/vyracare-ui",
+      "sourceRoot": "libs/vyracare-ui/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/vyracare-ui/ng-package.json"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "libs/vyracare-ui/.storybook",
+            "browserTarget": "design-system:build",
+            "tsConfig": "tsconfig.storybook.json",
+            "styles": [
+              "libs/vyracare-ui/src/lib/styles/_index.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+            ],
+            "port": 6006,
+            "compodoc": false
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "libs/vyracare-ui/.storybook",
+            "browserTarget": "design-system:build",
+            "tsConfig": "tsconfig.storybook.json",
+            "styles": [
+              "libs/vyracare-ui/src/lib/styles/_index.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+            ],
+            "outputDir": "dist/storybook",
+            "compodoc": false
+          }
+        }
+      }
+    },
+    "playground": {
+      "projectType": "application",
+      "root": "apps/playground",
+      "sourceRoot": "apps/playground/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/playground",
+            "index": "apps/playground/src/index.html",
+            "browser": "apps/playground/src/main.ts",
+            "polyfills": ["apps/playground/src/polyfills.ts"],
+            "tsConfig": "apps/playground/tsconfig.app.json",
+            "assets": ["apps/playground/src/assets"],
+            "styles": [
+              "apps/playground/src/styles.css",
+              "libs/vyracare-ui/src/lib/styles/_index.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+            ],
+            "scripts": []
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "playground:build"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "b5c5f9d3-329c-4d2b-8acf-88a6abe8b521"
+  }
+}

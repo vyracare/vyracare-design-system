@@ -1,0 +1,15 @@
+<div class="vc-card" [class.vc-card--primary]="variant === 'primary'">
+  @if (title || subtitle) {
+    <div class="vc-card__header">
+      @if (subtitle) {
+        <p class="vc-card__eyebrow">{{ subtitle }}</p>
+      }
+      @if (title) {
+        <h3 class="vc-card__title">{{ title }}</h3>
+      }
+    </div>
+  }
+  <div class="vc-card__body">
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<section class="page">
+  <vc-heading [level]="2">Componentes</vc-heading>
+
+  <div class="page__section">
+    <vc-heading [level]="4">Buttons</vc-heading>
+    <div class="page__row page__row--cards">
+      <vc-button>Novo paciente</vc-button>
+      <vc-button variant="secondary">Novo atendimento</vc-button>
+      <vc-button variant="tertiary">Limpar</vc-button>
+      <vc-button variant="ghost" [loading]="loading">Ghost</vc-button>
+    </div>
+  </div>
+
+  <div class="page__section">
+    <vc-heading [level]="4">Cards</vc-heading>
+    <div class="page__row">
+      <vc-card variant="primary" title="Atendimento premium" subtitle="Novo pacote">
+        <vc-text>Mostre informacoes de alto impacto com gradiente.</vc-text>
+      </vc-card>
+      <vc-card>
+        <div class="card-row">
+          <vc-icon name="heart-pulse" size="lg" [decorative]="true"></vc-icon>
+          <div>
+            <vc-label>Atendimentos</vc-label>
+            <vc-text size="lg">24 novos</vc-text>
+          </div>
+        </div>
+      </vc-card>
+      <vc-card>
+        <div class="card-row">
+          <vc-icon name="calendar-check" size="lg" [decorative]="true"></vc-icon>
+          <div>
+            <vc-label>Agendamentos</vc-label>
+            <vc-text size="lg">12 hoje</vc-text>
+          </div>
+        </div>
+      </vc-card>
+    </div>
+  </div>
+
+  <div class="page__section">
+    <vc-heading [level]="4">Card Button</vc-heading>
+    <div class="page__row page__row--stack">
+      <vc-card-button
+        title="Cadastro de pacientes"
+        subtitle="Prontuarios e historico clinico"
+        icon="people"
+      ></vc-card-button>
+      <vc-card-button
+        title="Agenda clinica"
+        subtitle="Acompanhe os atendimentos"
+        [showIcon]="false"
+        [showAction]="true"
+      ></vc-card-button>
+    </div>
+  </div>
+
+  <div class="page__section">
+    <vc-heading [level]="4">Listas</vc-heading>
+    <div class="page__row page__row--stack">
+      <vc-list [items]="listItems"></vc-list>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<div class="vc-date">
+  @if (label) {
+    <label class="vc-label" [attr.for]="id">
+      <span>{{ label }}</span>
+      @if (required) {
+        <span class="vc-label__required">*</span>
+      }
+    </label>
+  }
+  <div class="vc-date__field">
+    <input
+      class="vc-date__input"
+      [id]="id"
+      type="text"
+      inputmode="numeric"
+      [attr.placeholder]="placeholder"
+      [disabled]="disabled"
+      [value]="value"
+      [class.invalid]="!!error"
+      (input)="handleInput($event)"
+      (blur)="markTouched()"
+    />
+    @if (showIcon) {
+      <vc-icon [name]="icon" size="sm" [decorative]="true"></vc-icon>
+    }
+  </div>
+  @if (hint && !error) {
+    <small class="vc-date__hint">{{ hint }}</small>
+  }
+  @if (error) {
+    <small class="vc-date__error">{{ error }}</small>
+  }
+</div>

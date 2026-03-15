@@ -1,0 +1,38 @@
+:root {
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  color: #0b0f1a;
+}
+
+body {
+  margin: 0;
+}
+
+:root.theme-transition,
+:root.theme-transition * {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+:root[data-theme='dark'] {
+  --vc-color-background: #0b0f1a;
+  --vc-color-surface: #11172a;
+  --vc-color-border: rgba(255, 255, 255, 0.08);
+  --vc-color-stroke: rgba(255, 255, 255, 0.12);
+  --vc-color-text-primary: #eef1f8;
+  --vc-color-text-strong: #ffffff;
+  --vc-color-text-medium: #c9d0e6;
+  --vc-color-text-muted: #a0aac4;
+  --vc-color-text-subtle: #8b94ad;
+  --vc-color-highlight: rgba(90, 59, 231, 0.16);
+  --vc-color-highlight-strong: rgba(90, 59, 231, 0.28);
+  --vc-color-highlight-warm: rgba(255, 108, 136, 0.2);
+  --vc-color-highlight-cool: rgba(90, 196, 255, 0.18);
+  --vc-color-state-danger: #ff6c88;
+  --vc-color-state-danger-bg: rgba(255, 108, 136, 0.18);
+  --vc-color-state-danger-text: #ffd2dc;
+  --vc-color-state-success-bg: rgba(47, 185, 127, 0.22);
+  --vc-color-state-success-text: #b8f0d9;
+}

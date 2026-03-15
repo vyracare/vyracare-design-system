@@ -1,0 +1,33 @@
+<div class="playground">
+  <aside class="playground__sidebar">
+    <div class="playground__brand-row">
+      <div class="playground__brand">
+        <span>Vyracare</span>
+        <strong>Design System</strong>
+      </div>
+      <button
+        type="button"
+        class="playground__theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="theme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'"
+      >
+        <vc-icon [name]="themeIcon()" size="md" [decorative]="true"></vc-icon>
+      </button>
+    </div>
+    <nav class="playground__nav">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: link.path === '' }"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+  </aside>
+
+  <main class="playground__content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

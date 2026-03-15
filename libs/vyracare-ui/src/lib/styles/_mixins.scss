@@ -1,0 +1,77 @@
+@use 'sass:color';
+
+@mixin surface($radius: 18px, $background: #ffffff, $borderColor: var(--vc-color-neutral-200), $shadow: 0 18px 40px rgba(15, 23, 42, 0.08)) {
+  background: $background;
+  border: 1px solid $borderColor;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}
+
+@mixin panel {
+  @include surface(20px, rgba(255, 255, 255, 0.92), var(--vc-color-neutral-200));
+  padding: 1.8rem;
+}
+
+@mixin heading($size: var(--vc-font-size-xl)) {
+  font-family: var(--vc-font-heading);
+  font-size: $size;
+  color: var(--vc-color-text-strong);
+  margin: 0;
+}
+
+@mixin body-text($size: var(--vc-font-size-md), $color: var(--vc-color-neutral-700)) {
+  font-family: var(--vc-font-base);
+  font-size: $size;
+  color: $color;
+  margin: 0;
+}
+
+@mixin link($color: var(--vc-color-primary)) {
+  text-decoration: none;
+  color: $color;
+  font-weight: var(--vc-font-weight-semibold);
+}
+
+@mixin badge($background: var(--vc-color-highlight), $color: var(--vc-color-primary)) {
+  background: $background;
+  color: $color;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: var(--vc-font-weight-semibold);
+  font-size: 0.75rem;
+}
+
+@mixin input-base {
+  border: 1px solid rgba(31, 79, 214, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+  background: #ffffff;
+  color: var(--vc-color-neutral-900);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--vc-color-primary);
+    box-shadow: 0 0 0 3px rgba(90, 59, 231, 0.15);
+  }
+
+  &.invalid {
+    border-color: var(--vc-color-danger);
+    box-shadow: 0 0 0 3px rgba(234, 79, 79, 0.18);
+  }
+}
+
+@mixin label-base {
+  font-weight: var(--vc-font-weight-semibold);
+  font-size: 0.85rem;
+  color: var(--vc-color-text-strong);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+@mixin helper-text($color: var(--vc-color-neutral-600)) {
+  font-size: 0.75rem;
+  color: $color;
+}

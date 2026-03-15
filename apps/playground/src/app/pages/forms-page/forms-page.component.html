@@ -1,0 +1,45 @@
+<section class="page">
+  <vc-heading [level]="2">Formularios</vc-heading>
+  <vc-text [muted]="true">
+    Campos com estados de hint e error para validar o padrao visual.
+  </vc-text>
+
+  <div class="page__grid">
+    <vc-input label="Nome completo" placeholder="Digite o nome"></vc-input>
+    <vc-input
+      label="E-mail"
+      type="email"
+      placeholder="email@vyracare.com"
+      mask="email"
+    ></vc-input>
+    <vc-input
+      label="Telefone"
+      type="tel"
+      placeholder="(11) 99999-0000"
+      hint="Opcional"
+      mask="phone"
+    ></vc-input>
+    <vc-input
+      label="Senha"
+      type="password"
+      error="Senha fraca"
+      mask="password"
+    ></vc-input>
+    <vc-input
+      label="Data de admissao"
+      placeholder="dd/mm/aaaa"
+      mask="date"
+    ></vc-input>
+    <vc-date label="Data de nascimento" hint="Formato dd/mm/aaaa"></vc-date>
+    <div class="page__span">
+      <vc-select
+        label="Especialidade"
+        placeholder="Selecione"
+        [options]="specialties"
+      ></vc-select>
+    </div>
+    <div class="page__span">
+      <vc-search label="Buscar paciente" placeholder="Digite para buscar"></vc-search>
+    </div>
+  </div>
+</section>

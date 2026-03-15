@@ -1,0 +1,54 @@
+@use '../../styles/mixins' as mixins;
+
+.vc-card {
+  --vc-card-bg: var(--vc-color-surface);
+  --vc-card-border: var(--vc-color-border);
+  --vc-card-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --vc-card-text: var(--vc-color-text-primary);
+  --vc-card-title: var(--vc-color-text-strong);
+  --vc-card-muted: var(--vc-color-text-muted);
+  --vc-card-body: var(--vc-color-text-medium);
+
+  @include mixins.surface(18px, var(--vc-card-bg), var(--vc-card-border), var(--vc-card-shadow));
+  padding: 20px;
+  font-family: var(--vc-font-base);
+  color: var(--vc-card-text);
+
+  &__header {
+    margin-bottom: var(--vc-space-md);
+  }
+
+  &__eyebrow {
+    text-transform: uppercase;
+    font-size: var(--vc-font-size-xs);
+    letter-spacing: 0.12em;
+    color: var(--vc-card-muted);
+    margin: 0 0 6px;
+  }
+
+  &__title {
+    @include mixins.heading(var(--vc-font-size-xl));
+    color: var(--vc-card-title);
+  }
+
+  &__body {
+    font-size: var(--vc-font-size-md);
+    color: var(--vc-card-body);
+  }
+
+  &--primary {
+    --vc-card-bg: linear-gradient(135deg, var(--vc-color-primary), var(--vc-color-accent));
+    --vc-card-border: transparent;
+    --vc-card-shadow: 0 20px 40px rgba(90, 59, 231, 0.24);
+    --vc-card-text: rgba(255, 255, 255, 0.94);
+    --vc-card-title: #ffffff;
+    --vc-card-muted: rgba(255, 255, 255, 0.7);
+    --vc-card-body: rgba(255, 255, 255, 0.86);
+
+    --vc-color-text-strong: #ffffff;
+    --vc-color-text-primary: rgba(255, 255, 255, 0.94);
+    --vc-color-text-medium: rgba(255, 255, 255, 0.86);
+    --vc-color-text-muted: rgba(255, 255, 255, 0.7);
+    --vc-color-text-subtle: rgba(255, 255, 255, 0.65);
+  }
+}

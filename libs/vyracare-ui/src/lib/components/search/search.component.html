@@ -1,0 +1,25 @@
+<div class="vc-search">
+  @if (label) {
+    <label class="vc-label" [attr.for]="id">{{ label }}</label>
+  }
+  <div class="vc-search__field">
+    <vc-icon name="search" size="sm" [decorative]="true"></vc-icon>
+    <input
+      class="vc-search__input"
+      [id]="id"
+      type="search"
+      [attr.placeholder]="placeholder"
+      [disabled]="disabled"
+      [value]="value"
+      [class.invalid]="!!error"
+      (input)="handleInput($event)"
+      (blur)="markTouched()"
+    />
+  </div>
+  @if (hint && !error) {
+    <small class="vc-search__hint">{{ hint }}</small>
+  }
+  @if (error) {
+    <small class="vc-search__error">{{ error }}</small>
+  }
+</div>

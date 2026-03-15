@@ -1,0 +1,16 @@
+{
+  "name": "@vyracare/design-system",
+  "version": "0.1.0",
+  "private": false,
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "bootstrap-icons": "^1.11.3",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

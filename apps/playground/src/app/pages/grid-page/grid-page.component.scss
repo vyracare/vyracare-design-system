@@ -1,0 +1,23 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-x: hidden;
+
+  .grid-box {
+    background: var(--vc-color-highlight-cool);
+    border: 1px dashed var(--vc-color-stroke);
+    color: var(--vc-color-text-strong);
+    padding: 12px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-family: var(--vc-font-base);
+  }
+}
+
+:host-context([data-theme='dark']) .page .grid-box {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--vc-color-text-strong);
+}

@@ -1,0 +1,59 @@
+@if (isLink) {
+  <a
+    class="vc-card-button"
+    [class.vc-card-button--no-icon]="!hasBadge"
+    [href]="href"
+    [attr.target]="target"
+    [attr.rel]="target === '_blank' ? 'noopener noreferrer' : null"
+  >
+    @if (hasBadge) {
+      <div class="vc-card-button__badge">
+        @if (icon) {
+          <vc-icon [name]="icon" size="md" [decorative]="true"></vc-icon>
+        } @else {
+          <span>{{ badgeText }}</span>
+        }
+      </div>
+    }
+    <div class="vc-card-button__content">
+      <span class="vc-card-button__title">{{ title }}</span>
+      @if (subtitle) {
+        <span class="vc-card-button__subtitle">{{ subtitle }}</span>
+      }
+    </div>
+    @if (showAction) {
+      <div class="vc-card-button__action">
+        <vc-icon [name]="actionIcon" size="sm" [decorative]="true"></vc-icon>
+      </div>
+    }
+  </a>
+} @else {
+  <button
+    type="button"
+    class="vc-card-button"
+    [class.vc-card-button--no-icon]="!hasBadge"
+    [disabled]="disabled"
+    (click)="handleClick()"
+  >
+    @if (hasBadge) {
+      <div class="vc-card-button__badge">
+        @if (icon) {
+          <vc-icon [name]="icon" size="md" [decorative]="true"></vc-icon>
+        } @else {
+          <span>{{ badgeText }}</span>
+        }
+      </div>
+    }
+    <div class="vc-card-button__content">
+      <span class="vc-card-button__title">{{ title }}</span>
+      @if (subtitle) {
+        <span class="vc-card-button__subtitle">{{ subtitle }}</span>
+      }
+    </div>
+    @if (showAction) {
+      <div class="vc-card-button__action">
+        <vc-icon [name]="actionIcon" size="sm" [decorative]="true"></vc-icon>
+      </div>
+    }
+  </button>
+}
