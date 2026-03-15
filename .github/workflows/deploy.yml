@@ -19,6 +19,7 @@ env:
   CODEARTIFACT_REPO: vyracare-design-system
   S3_BUCKET_NAME: vyracare-design-system-storybook
   INFRA_REPOSITORY: vyracare/vyracare-infra-cloudfront-bucket
+  CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
 
 jobs:
   ci:
@@ -104,11 +105,11 @@ jobs:
         run: npm run test-storybook:ci
 
       - name: Run visual tests
-        if: ${{ secrets.CHROMATIC_PROJECT_TOKEN != '' }}
+        if: ${{ env.CHROMATIC_PROJECT_TOKEN != '' }}
         working-directory: ${{ steps.resolve.outputs.workdir }}
         shell: bash
         env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          CHROMATIC_PROJECT_TOKEN: ${{ env.CHROMATIC_PROJECT_TOKEN }}
         run: npm run visual-tests
 
       - name: Upload dist artifact
