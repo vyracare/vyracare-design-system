@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
 
+/** Playground page that demonstrates the Vyracare responsive grid system. */
 @Component({
   selector: 'playground-grid-page',
   standalone: true,

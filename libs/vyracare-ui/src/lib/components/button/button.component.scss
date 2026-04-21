@@ -4,19 +4,22 @@
   --vc-button-bg-hover: var(--vc-button-bg);
   --vc-button-color: var(--vc-color-primary);
   --vc-button-border: transparent;
+  --vc-button-border-width: 0;
   --vc-button-shadow: none;
   --vc-button-shadow-hover: var(--vc-button-shadow);
   --vc-spinner-track: rgba(255, 255, 255, 0.4);
   --vc-spinner-head: #ffffff;
 
   .vc-button__inner {
+    appearance: none;
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--vc-space-sm);
     padding: 11px 22px;
     border-radius: 12px;
-    border: 1px solid var(--vc-button-border);
+    border: var(--vc-button-border-width) solid var(--vc-button-border);
     font-family: var(--vc-font-base);
     font-weight: var(--vc-font-weight-semibold);
     font-size: var(--vc-font-size-md);
@@ -25,11 +28,22 @@
     background: var(--vc-button-bg);
     color: var(--vc-button-color);
     box-shadow: var(--vc-button-shadow);
+    outline: none;
 
     &:not(:disabled):hover {
       background: var(--vc-button-bg-hover);
       box-shadow: var(--vc-button-shadow-hover);
       transform: translateY(-1px);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      box-shadow: var(--vc-button-shadow-hover);
+      outline: 2px solid rgba(31, 34, 51, 0.18);
+      outline-offset: 2px;
     }
 
     &:not(:disabled):active {
@@ -63,26 +77,36 @@
     font-size: var(--vc-font-size-lg);
   }
 
+  &.vc-button--full {
+    display: flex;
+    width: 100%;
+
+    .vc-button__inner {
+      width: 100%;
+    }
+  }
+
   &.vc-button--primary .vc-button__inner {
     --vc-button-bg: linear-gradient(135deg, var(--vc-color-primary), var(--vc-color-accent));
     --vc-button-bg-hover: linear-gradient(135deg, #6f50f1, #ff7f9a);
     --vc-button-color: #ffffff;
-    --vc-button-shadow: 0 16px 26px rgba(90, 59, 231, 0.28);
-    --vc-button-shadow-hover: 0 18px 30px rgba(90, 59, 231, 0.36);
+    --vc-button-shadow: 0 12px 22px rgba(31, 34, 51, 0.1);
+    --vc-button-shadow-hover: 0 14px 24px rgba(31, 34, 51, 0.14);
   }
 
   &.vc-button--secondary .vc-button__inner {
     --vc-button-bg: linear-gradient(135deg, var(--vc-color-primary), var(--vc-color-info));
     --vc-button-bg-hover: linear-gradient(135deg, #6a5bff, #6fd1ff);
     --vc-button-color: #ffffff;
-    --vc-button-shadow: 0 16px 28px rgba(82, 140, 255, 0.28);
-    --vc-button-shadow-hover: 0 18px 32px rgba(82, 140, 255, 0.36);
+    --vc-button-shadow: 0 12px 22px rgba(31, 34, 51, 0.1);
+    --vc-button-shadow-hover: 0 14px 24px rgba(31, 34, 51, 0.14);
   }
 
   &.vc-button--tertiary .vc-button__inner {
     --vc-button-bg: var(--vc-color-surface);
     --vc-button-bg-hover: var(--vc-color-highlight);
     --vc-button-color: var(--vc-color-primary);
+    --vc-button-border-width: 1px;
     --vc-button-border: rgba(90, 59, 231, 0.35);
     --vc-button-shadow: 0 10px 20px rgba(90, 59, 231, 0.1);
     --vc-button-shadow-hover: 0 12px 24px rgba(90, 59, 231, 0.16);
@@ -94,6 +118,7 @@
     --vc-button-bg: transparent;
     --vc-button-bg-hover: rgba(90, 59, 231, 0.08);
     --vc-button-color: var(--vc-color-primary);
+    --vc-button-border-width: 0;
     --vc-button-border: transparent;
     --vc-spinner-track: rgba(90, 59, 231, 0.2);
     --vc-spinner-head: var(--vc-color-primary);

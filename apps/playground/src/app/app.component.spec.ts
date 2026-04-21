@@ -33,4 +33,14 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(root.hasAttribute('data-theme')).toBe(false);
   });
+
+  it('toggles the components dropdown menu', () => {
+    const component = fixture.componentInstance;
+
+    expect(component.componentsMenuOpen()).toBe(true);
+    component.toggleComponentsMenu();
+    expect(component.componentsMenuOpen()).toBe(false);
+    component.toggleComponentsMenu();
+    expect(component.componentsMenuOpen()).toBe(true);
+  });
 });

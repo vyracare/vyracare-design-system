@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import type { VcTextSize } from './model/text.model';
+
+export type { VcTextSize } from './model/text.model';
+
+/** Paragraph text component aligned with design-system typography tokens. */
 @Component({
   selector: 'vc-text',
   standalone: true,
@@ -8,6 +13,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VcTextComponent {
-  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  /** Text size token. */
+  @Input() size: VcTextSize = 'md';
+  /** Applies muted visual treatment when true. */
   @Input() muted = false;
 }

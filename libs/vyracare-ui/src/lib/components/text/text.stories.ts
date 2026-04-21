@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { VcTextComponent } from './text.component';
 
 const meta: Meta<VcTextComponent> = {
-  title: 'Foundations/Text',
+  title: 'Fundations/Text',
   component: VcTextComponent,
   tags: ['autodocs'],
   parameters: {

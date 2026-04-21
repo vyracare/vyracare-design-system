@@ -44,6 +44,24 @@ describe('VcSelectComponent', () => {
     expect(onChange).toHaveBeenCalledWith('cardio');
   });
 
+  it('handles change and touch before form callbacks are registered', () => {
+    const select = document.createElement('select');
+    const option = document.createElement('option');
+    option.value = 'cardio';
+    select.appendChild(option);
+    select.value = 'cardio';
+
+    expect(() => component.handleChange({ target: select } as unknown as Event)).not.toThrow();
+    expect(() => component.markTouched()).not.toThrow();
+    expect(component.value).toBe('cardio');
+  });
+
+  it('writes an empty value when writeValue receives null', () => {
+    component.writeValue(null);
+    fixture.detectChanges();
+    expect(component.value).toBe('');
+  });
+
   it('writes value on writeValue', () => {
     component.options = [{ label: 'Cardiologia', value: 'cardio' }];
     component.writeValue('cardio');

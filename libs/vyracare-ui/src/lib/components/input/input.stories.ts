@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import { VcInputComponent } from './input.component';
 
 const meta: Meta<VcInputComponent> = {
-  title: 'Form/Input',
+  title: 'Forms/Input',
   component: VcInputComponent,
   tags: ['autodocs'],
   parameters: {

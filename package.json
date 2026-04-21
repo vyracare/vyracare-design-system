@@ -5,6 +5,7 @@
   "description": "Vyracare Design System (Angular) - tokens + componentes + storybook.",
   "scripts": {
     "build": "ng run design-system:build",
+    "prepare": "husky",
     "start": "ng serve playground --port 4205",
     "test": "jest --coverage",
     "storybook": "ng run design-system:storybook",
@@ -13,6 +14,7 @@
     "test-storybook": "test-storybook --config-dir libs/vyracare-ui/.storybook --url http://127.0.0.1:6006 --maxWorkers=2",
     "test-storybook:ci": "node scripts/run-storybook-tests.mjs",
     "visual-tests": "chromatic --exit-once-uploaded --storybook-build-dir dist/storybook",
+    "version:ci": "node scripts/bump-ci-version.mjs",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"
@@ -54,6 +56,7 @@
     "bootstrap-icons": "^1.11.3",
     "chromatic": "^15.2.0",
     "http-server": "^14.1.1",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-preset-angular": "^14.1.1",
     "ng-packagr": "^20.0.0",

@@ -1,0 +1,13 @@
+.component-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__header,
+  &__section,
+  &__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

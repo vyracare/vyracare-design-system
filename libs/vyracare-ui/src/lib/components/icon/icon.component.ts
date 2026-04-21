@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 
-export type VcIconSize = 'sm' | 'md' | 'lg' | 'xl' | number;
+import type { VcIconSize } from './model/icon.model';
 
+export type { VcIconSize } from './model/icon.model';
+
+/** Bootstrap Icons wrapper with design-system sizing and accessibility defaults. */
 @Component({
   selector: 'vc-icon',
   standalone: true,
@@ -12,17 +15,24 @@ export type VcIconSize = 'sm' | 'md' | 'lg' | 'xl' | number;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VcIconComponent {
+  /** Bootstrap Icons name without the `bi-` prefix. */
   @Input() name = '';
+  /** Size token or custom pixel value. */
   @Input() size: VcIconSize = 'md';
+  /** Accessible label used when the icon is meaningful. */
   @Input() ariaLabel = '';
+  /** Optional title rendered by the icon template. */
   @Input() title = '';
+  /** Hides the icon from assistive technology when true. */
   @Input() decorative = true;
 
+  /** Custom CSS variable used when size is passed as a number. */
   @HostBinding('style.--vc-icon-size')
   get iconSize(): string | null {
     return typeof this.size === 'number' ? `${this.size}px` : null;
   }
 
+  /** CSS classes generated from icon name and size token. */
   get iconClasses(): string[] {
     const classes = ['vc-icon', 'bi'];
 

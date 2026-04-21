@@ -27,18 +27,20 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'libs/vyracare-ui/src/lib/**/*.ts',
+    'apps/playground/src/app/**/*.component.ts',
     '!libs/vyracare-ui/src/lib/**/*.spec.ts',
     '!libs/vyracare-ui/src/lib/**/*.stories.ts',
+    '!apps/playground/src/app/**/*.spec.ts',
     '!libs/vyracare-ui/src/public-api.ts'
   ],
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['html', 'text', 'lcov'],
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90
     }
   }
 };

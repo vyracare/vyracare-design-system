@@ -39,6 +39,21 @@ describe('VcSearchComponent', () => {
     expect(onChange).toHaveBeenCalledWith('teste');
   });
 
+  it('handles input and touch before form callbacks are registered', () => {
+    const input = document.createElement('input');
+    input.value = 'sem callback';
+
+    expect(() => component.handleInput({ target: input } as unknown as Event)).not.toThrow();
+    expect(() => component.markTouched()).not.toThrow();
+    expect(component.value).toBe('sem callback');
+  });
+
+  it('writes an empty value when writeValue receives null', () => {
+    component.writeValue(null);
+    fixture.detectChanges();
+    expect(component.value).toBe('');
+  });
+
   it('disables input when setDisabledState is true', () => {
     component.setDisabledState(true);
     fixture.detectChanges();

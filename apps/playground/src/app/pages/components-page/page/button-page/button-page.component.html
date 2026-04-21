@@ -1,0 +1,43 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Button</vc-heading>
+    <vc-text>
+      Use o Button para acoes principais da interface, confirmacoes, navegacao e estados
+      de carregamento. Use <code>full</code> quando a acao precisar ocupar toda a largura
+      disponivel, especialmente em telas pequenas.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Variantes</vc-heading>
+      <div class="component-page__row">
+        <vc-button>Novo paciente</vc-button>
+        <vc-button variant="secondary">Novo atendimento</vc-button>
+        <vc-button variant="tertiary">Limpar</vc-button>
+        <vc-button variant="ghost">Cancelar</vc-button>
+      </div>
+    </div>
+  </vc-card>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Tamanhos e estados</vc-heading>
+      <div class="component-page__row">
+        <vc-button size="sm">Pequeno</vc-button>
+        <vc-button size="md">Medio</vc-button>
+        <vc-button size="lg">Grande</vc-button>
+        <vc-button [loading]="loading">Carregando</vc-button>
+        <vc-button [disabled]="true">Desativado</vc-button>
+      </div>
+    </div>
+  </vc-card>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Full width</vc-heading>
+      <vc-text [muted]="true">Ideal para formularios e layouts mobile.</vc-text>
+      <vc-button full>Continuar cadastro</vc-button>
+    </div>
+  </vc-card>
+</section>

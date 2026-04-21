@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import type { VcInputMask, VcInputType } from './model/input.model';
+
+export type { VcInputMask, VcInputType } from './model/input.model';
+
+/** Form input with labels, hints, validation messaging and optional masks. */
 @Component({
   selector: 'vc-input',
   standalone: true,
@@ -16,16 +21,26 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VcInputComponent implements ControlValueAccessor {
+  /** Id forwarded to the internal input and label relationship. */
   @Input() id = '';
+  /** Label rendered above the input. */
   @Input() label = '';
+  /** Placeholder rendered by the internal input. */
   @Input() placeholder = '';
-  @Input() type: 'text' | 'email' | 'password' | 'tel' | 'number' | 'date' = 'text';
-  @Input() mask: 'phone' | 'email' | 'date' | 'password' | '' = '';
+  /** Native input type. */
+  @Input() type: VcInputType = 'text';
+  /** Optional mask applied while the user types. */
+  @Input() mask: VcInputMask = '';
+  /** Supporting text rendered below the control. */
   @Input() hint = '';
+  /** Error text rendered below the control and used for invalid state. */
   @Input() error = '';
+  /** Marks the input as required for users and assistive technology. */
   @Input() required = false;
 
+  /** Current value synchronized through ControlValueAccessor. */
   value = '';
+  /** Disabled state synchronized through ControlValueAccessor. */
   disabled = false;
 
   private onChange: (value: string) => void = () => undefined;
@@ -33,24 +48,29 @@ export class VcInputComponent implements ControlValueAccessor {
 
   constructor(private readonly cdr: ChangeDetectorRef) {}
 
+  /** Writes external form values into the component. */
   writeValue(value: string | null): void {
     this.value = this.applyMask(value ?? '');
     this.cdr.markForCheck();
   }
 
+  /** Stores the Angular Forms change callback. */
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
+  /** Stores the Angular Forms touched callback. */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
+  /** Updates the disabled state from Angular Forms. */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.cdr.markForCheck();
   }
 
+  /** Applies the configured mask and emits the new value. */
   handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     const masked = this.applyMask(target.value);
@@ -59,10 +79,12 @@ export class VcInputComponent implements ControlValueAccessor {
     this.onChange(this.value);
   }
 
+  /** Marks the control as touched. */
   markTouched(): void {
     this.onTouched();
   }
 
+  /** Input mode hint derived from the active mask. */
   get inputMode(): string | null {
     switch (this.mask) {
       case 'phone':

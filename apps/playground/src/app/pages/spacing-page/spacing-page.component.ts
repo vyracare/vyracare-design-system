@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
 
+/** Playground page that documents spacing tokens and their pixel values. */
 @Component({
   selector: 'playground-spacing-page',
   standalone: true,
@@ -10,6 +11,7 @@ import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
   styleUrls: ['./spacing-page.component.scss']
 })
 export class SpacingPageComponent {
+  /** Spacing tokens rendered in the playground examples. */
   spaces = [
     { token: '--vc-space-xs', label: 'XS', value: '4px' },
     { token: '--vc-space-sm', label: 'SM', value: '8px' },

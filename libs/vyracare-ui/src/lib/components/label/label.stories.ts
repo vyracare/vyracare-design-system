@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { VcLabelComponent } from './label.component';
 
 const meta: Meta<VcLabelComponent> = {
-  title: 'Foundations/Label',
+  title: 'Fundations/Label',
   component: VcLabelComponent,
   tags: ['autodocs'],
   parameters: {

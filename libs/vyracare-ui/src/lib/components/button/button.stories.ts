@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import { VcButtonComponent } from './button.component';
 
 const meta: Meta<VcButtonComponent> = {
-  title: 'Components/Button',
+  title: 'Fundations/Button',
   component: VcButtonComponent,
   tags: ['autodocs'],
   parameters: {
@@ -26,6 +26,7 @@ const meta: Meta<VcButtonComponent> = {
         [loading]="loading"
         [disabled]="disabled"
         [type]="type"
+        [full]="full"
       >Cadastrar</vc-button>
     `
   }),
@@ -52,6 +53,10 @@ const meta: Meta<VcButtonComponent> = {
     disabled: {
       control: 'boolean',
       description: 'Desativa o botao.'
+    },
+    full: {
+      control: 'boolean',
+      description: 'Faz o botao ocupar 100% da largura disponivel.'
     }
   }
 };
@@ -66,6 +71,7 @@ export const Primary: Story = {
     size: 'md',
     loading: false,
     disabled: false,
+    full: false,
     type: 'button'
   },
   play: async ({ canvas, userEvent }) => {
@@ -83,6 +89,7 @@ export const Loading: Story = {
     size: 'md',
     loading: true,
     disabled: false,
+    full: false,
     type: 'button'
   },
   play: async ({ canvas }) => {
@@ -98,6 +105,7 @@ export const Secondary: Story = {
     size: 'md',
     loading: false,
     disabled: false,
+    full: false,
     type: 'button'
   }
 };
@@ -108,6 +116,7 @@ export const Tertiary: Story = {
     size: 'md',
     loading: false,
     disabled: false,
+    full: false,
     type: 'button'
   }
 };
@@ -118,6 +127,33 @@ export const Ghost: Story = {
     size: 'md',
     loading: false,
     disabled: false,
+    full: false,
     type: 'button'
   }
+};
+
+export const FullWidth: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    loading: false,
+    disabled: false,
+    full: true,
+    type: 'button'
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <div style="width: 360px; max-width: 100%;">
+        <vc-button
+          [variant]="variant"
+          [size]="size"
+          [loading]="loading"
+          [disabled]="disabled"
+          [type]="type"
+          [full]="full"
+        >Cadastrar</vc-button>
+      </div>
+    `
+  })
 };

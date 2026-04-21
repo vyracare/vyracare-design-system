@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { VcIconComponent } from './icon.component';
 
 const meta: Meta<VcIconComponent> = {
-  title: 'Foundations/Icon',
+  title: 'Fundations/Icon',
   component: VcIconComponent,
   tags: ['autodocs'],
   parameters: {

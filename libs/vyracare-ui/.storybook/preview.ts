@@ -1,6 +1,10 @@
 import type { Preview } from '@storybook/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
+import { storybookHierarchy } from './hierarchy';
+
+void storybookHierarchy;
+
 const vyracareViewports = {
   xs: {
     name: 'XS / 360px',
@@ -48,7 +52,20 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['Introduction', '*']
+        order: [
+          'Introduction',
+          ['Getting Started'],
+          'Fundations',
+          ['Heading', 'Label', 'Text', 'Icon', 'Button'],
+          'Components',
+          ['Card Button', 'Card', 'List'],
+          'Forms',
+          ['Input', 'Search', 'Date', 'Select'],
+          'Styles',
+          ['Grid'],
+          'Design Tokens',
+          ['Typography', 'Colors', 'Spacing']
+        ]
       }
     },
     backgrounds: {

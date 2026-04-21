@@ -1,0 +1,35 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Card</vc-heading>
+    <vc-text>
+      Use Card para agrupar informacoes relacionadas, criar blocos de metricas e
+      destacar conteudos importantes sem perder hierarquia visual.
+    </vc-text>
+  </header>
+
+  <div class="component-page__grid">
+    <vc-card variant="primary" title="Atendimento premium" subtitle="Novo pacote">
+      <vc-text>Mostre informacoes de alto impacto com gradiente.</vc-text>
+    </vc-card>
+
+    <vc-card>
+      <div class="metric">
+        <vc-icon name="heart-pulse" size="lg" [decorative]="true"></vc-icon>
+        <div>
+          <vc-label>Atendimentos</vc-label>
+          <vc-text size="lg">24 novos</vc-text>
+        </div>
+      </div>
+    </vc-card>
+
+    <vc-card>
+      <div class="metric">
+        <vc-icon name="calendar-check" size="lg" [decorative]="true"></vc-icon>
+        <div>
+          <vc-label>Agendamentos</vc-label>
+          <vc-text size="lg">12 hoje</vc-text>
+        </div>
+      </div>
+    </vc-card>
+  </div>
+</section>

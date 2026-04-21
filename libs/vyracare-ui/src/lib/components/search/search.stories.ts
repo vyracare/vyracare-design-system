@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { VcSearchComponent } from './search.component';
 
 const meta: Meta<VcSearchComponent> = {
-  title: 'Form/Search',
+  title: 'Forms/Search',
   component: VcSearchComponent,
   tags: ['autodocs'],
   parameters: {

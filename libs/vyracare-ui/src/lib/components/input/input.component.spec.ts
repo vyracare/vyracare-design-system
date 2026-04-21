@@ -42,6 +42,15 @@ describe('VcInputComponent', () => {
     expect(onChange).toHaveBeenCalledWith('Novo valor');
   });
 
+  it('handles input and touch before form callbacks are registered', () => {
+    const input = document.createElement('input');
+    input.value = 'Valor sem callback';
+
+    expect(() => component.handleInput({ target: input } as unknown as Event)).not.toThrow();
+    expect(() => component.markTouched()).not.toThrow();
+    expect(component.value).toBe('Valor sem callback');
+  });
+
   it('applies phone mask on input', () => {
     component.mask = 'phone';
     const onChange = jest.fn();

@@ -1,45 +1,55 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import {
-  VcButtonComponent,
   VcCardComponent,
-  VcCardButtonComponent,
   VcHeadingComponent,
   VcIconComponent,
-  VcLabelComponent,
-  VcListComponent,
   VcTextComponent
 } from '@vyracare/design-system';
 
+import type { ComponentLink } from './model/component-link.model';
+
+/** Index page that links to each component-focused playground page. */
 @Component({
   selector: 'playground-components-page',
   standalone: true,
   imports: [
-    VcButtonComponent,
+    RouterLink,
     VcCardComponent,
-    VcCardButtonComponent,
     VcHeadingComponent,
     VcIconComponent,
-    VcLabelComponent,
-    VcListComponent,
     VcTextComponent
   ],
   templateUrl: './components-page.component.html',
   styleUrls: ['./components-page.component.scss']
 })
 export class ComponentsPageComponent {
-  loading = true;
-  listItems = [
+  /** Shortcut cards rendered in the components overview. */
+  components: ComponentLink[] = [
     {
-      title: 'Cadastro de pacientes',
-      description: 'Prontuarios e historico clinico',
-      icon: 'people'
+      title: 'Button',
+      description: 'Acoes principais, secundarias, ghost e full width.',
+      icon: 'cursor',
+      path: '/componentes/button'
     },
     {
-      title: 'Agenda',
-      description: 'Proximos atendimentos',
-      icon: 'calendar-check',
-      href: '#'
+      title: 'Card Button',
+      description: 'Card clicavel para atalhos e navegacao de alto destaque.',
+      icon: 'layout-text-window-reverse',
+      path: '/componentes/card-button'
+    },
+    {
+      title: 'Card',
+      description: 'Container visual para dados, indicadores e agrupamentos.',
+      icon: 'card-text',
+      path: '/componentes/card'
+    },
+    {
+      title: 'List',
+      description: 'Lista vertical para opcoes, atalhos e conteudos navegaveis.',
+      icon: 'list-check',
+      path: '/componentes/list'
     }
   ];
 }

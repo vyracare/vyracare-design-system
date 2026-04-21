@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { VcDateComponent } from './date.component';
 
 const meta: Meta<VcDateComponent> = {
-  title: 'Form/Date',
+  title: 'Forms/Date',
   component: VcDateComponent,
   tags: ['autodocs'],
   parameters: {

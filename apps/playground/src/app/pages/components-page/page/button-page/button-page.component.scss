@@ -1,0 +1,26 @@
+.component-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__header,
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+}
+
+code {
+  padding: 0.1rem 0.35rem;
+  border-radius: 6px;
+  background: var(--vc-color-highlight);
+  color: var(--vc-color-primary);
+}

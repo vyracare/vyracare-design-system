@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+/** Accessible label component with optional required indicator. */
 @Component({
   selector: 'vc-label',
   standalone: true,
@@ -8,7 +9,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VcLabelComponent {
+  /** Id of the form control associated with this label. */
   @Input() forId: string | null = null;
+  /** Text rendered when no projected content is provided. */
   @Input() text = '';
+  /** Shows the required indicator when true. */
   @Input() required = false;
 }

@@ -1,7 +1,50 @@
 <section class="page">
-  <vc-heading [level]="1">Playground</vc-heading>
-  <vc-text size="lg" [muted]="true">
-    Explore os componentes, formularios e tokens do Vyracare Design System por
-    paginas separadas.
-  </vc-text>
+  <div class="hero">
+    <span class="hero__eyebrow">Vyracare Design System</span>
+    <vc-heading [level]="1">Uma base visual para produtos de saude mais consistentes.</vc-heading>
+    <vc-text size="lg">
+      O playground organiza os fundamentos, componentes, formularios, grid e tokens
+      que sustentam as interfaces Vyracare. Use esta visao geral como ponto de partida
+      para validar comportamento, composicao e hierarquia visual.
+    </vc-text>
+    <div class="hero__actions">
+      <vc-button full>Explorar componentes</vc-button>
+      <vc-button variant="tertiary">Ver design tokens</vc-button>
+    </div>
+  </div>
+
+  <div class="page__grid">
+    @for (pillar of pillars; track pillar.title) {
+      <vc-card>
+        <div class="pillar">
+          <span>{{ pillar.title }}</span>
+          <vc-text [muted]="true">{{ pillar.description }}</vc-text>
+        </div>
+      </vc-card>
+    }
+  </div>
+
+  <section class="install">
+    <div class="install__header">
+      <vc-heading [level]="2">Instale em 3 passos</vc-heading>
+      <vc-text [muted]="true">
+        Use este fluxo para consumir a biblioteca em outro projeto Angular.
+      </vc-text>
+    </div>
+
+    <vc-card>
+      <div class="install__steps">
+        @for (step of installSteps; track step.title; let index = $index) {
+          <article class="install-step">
+            <span class="install-step__number">0{{ index + 1 }}</span>
+            <div>
+              <vc-heading [level]="4">{{ step.title }}</vc-heading>
+              <vc-text [muted]="true">{{ step.description }}</vc-text>
+              <code>{{ step.command }}</code>
+            </div>
+          </article>
+        }
+      </div>
+    </vc-card>
+  </section>
 </section>

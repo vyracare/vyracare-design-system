@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import { VcSelectComponent } from './select.component';
 
 const meta: Meta<VcSelectComponent> = {
-  title: 'Form/Select',
+  title: 'Forms/Select',
   component: VcSelectComponent,
   tags: ['autodocs'],
   parameters: {

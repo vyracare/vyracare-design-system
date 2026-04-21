@@ -38,4 +38,12 @@ describe('VcButtonComponent', () => {
     const button = fixture.nativeElement.querySelector('button');
     expect(button.disabled).toBe(true);
   });
+
+  it('applies full width class when full is true', () => {
+    const debugElement = fixture.debugElement.query(By.directive(VcButtonComponent));
+    debugElement.componentInstance.full = true;
+    fixture.detectChanges();
+
+    expect(debugElement.nativeElement.classList).toContain('vc-button--full');
+  });
 });

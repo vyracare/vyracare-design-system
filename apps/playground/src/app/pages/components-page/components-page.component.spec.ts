@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { ComponentsPageComponent } from './components-page.component';
 
@@ -7,28 +8,34 @@ describe('ComponentsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComponentsPageComponent]
+      imports: [ComponentsPageComponent],
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ComponentsPageComponent);
     fixture.detectChanges();
   });
 
-  it('renders button variants', () => {
-    const buttons = fixture.nativeElement.querySelectorAll('button');
-    expect(buttons.length).toBeGreaterThanOrEqual(4);
-  });
-
-  it('renders cards', () => {
+  it('renders component navigation cards', () => {
     const cards = fixture.nativeElement.querySelectorAll('vc-card');
-    expect(cards.length).toBeGreaterThanOrEqual(3);
+    expect(cards.length).toBe(4);
   });
 
-  it('renders card buttons and list', () => {
-    const cardButtons = fixture.nativeElement.querySelectorAll('vc-card-button');
-    const list = fixture.nativeElement.querySelector('vc-list');
+  it('renders component links', () => {
+    const anchors = fixture.nativeElement.querySelectorAll('a') as NodeListOf<HTMLAnchorElement>;
+    const links = Array.from(anchors).map((link) => link.getAttribute('href'));
 
-    expect(cardButtons.length).toBeGreaterThanOrEqual(1);
-    expect(list).toBeTruthy();
+    expect(links).toEqual(
+      ['/componentes/button', '/componentes/card-button', '/componentes/card', '/componentes/list']
+    );
+  });
+
+  it('renders component titles', () => {
+    const content = fixture.nativeElement.textContent;
+
+    expect(content).toContain('Button');
+    expect(content).toContain('Card Button');
+    expect(content).toContain('Card');
+    expect(content).toContain('List');
   });
 });

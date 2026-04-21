@@ -16,19 +16,26 @@ Design System para os MFEs da Vyracare, com tokens + componentes Angular e Story
 
 ## Uso nos MFEs
 
-1. Configure o feed do Azure Artifacts no `.npmrc` do projeto consumidor:
+1. Configure o scope `@vyracare` para o AWS CodeArtifact no `.npmrc` do projeto consumidor:
 
 ```
-@vyracare:registry=https://pkgs.dev.azure.com/<ORG>/<PROJECT>/_packaging/<FEED>/npm/registry/
+@vyracare:registry=https://vyracare-design-system-510253726006.d.codeartifact.us-east-1.amazonaws.com/npm/vyracare-design-system/
+always-auth=true
 ```
 
-2. Instale o pacote:
+2. Autentique o npm no CodeArtifact:
+
+```
+aws codeartifact login --tool npm --domain vyracare-design-system --domain-owner 510253726006 --repository vyracare-design-system --region us-east-1
+```
+
+3. Instale o pacote:
 
 ```
 npm i @vyracare/design-system
 ```
 
-3. Importe o modulo no app:
+4. Importe o modulo no app:
 
 ```
 import { VyracareUiModule } from '@vyracare/design-system';
@@ -40,7 +47,7 @@ Este repositorio usa Changesets para versionamento e publicacao.
 
 - `npm run changeset` para criar um changeset
 - `npm run version` para aplicar versoes
-- `npm run release` para publicar no feed
+- `npm run release` para publicar no CodeArtifact
 
 ## Tokens
 

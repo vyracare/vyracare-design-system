@@ -35,6 +35,21 @@ describe('VcDateComponent', () => {
     expect(onChange).toHaveBeenCalledWith('01/01/2026');
   });
 
+  it('handles input and touch before form callbacks are registered', () => {
+    const input = document.createElement('input');
+    input.value = '03032026';
+
+    expect(() => component.handleInput({ target: input } as unknown as Event)).not.toThrow();
+    expect(() => component.markTouched()).not.toThrow();
+    expect(component.value).toBe('03/03/2026');
+  });
+
+  it('writes an empty masked value when writeValue receives null', () => {
+    component.writeValue(null);
+    fixture.detectChanges();
+    expect(component.value).toBe('');
+  });
+
   it('applies date mask for partial values', () => {
     fixture.detectChanges();
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input');

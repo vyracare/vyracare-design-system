@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
 
+/** Playground page that documents typography families, scale and weights. */
 @Component({
   selector: 'playground-typography-page',
   standalone: true,
@@ -10,11 +11,13 @@ import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
   styleUrls: ['./typography-page.component.scss']
 })
 export class TypographyPageComponent {
+  /** Font family tokens rendered in the typography overview. */
   fontFamilies = [
     { token: '--vc-font-base', label: 'Base', value: "var(--vc-font-base)" },
     { token: '--vc-font-heading', label: 'Heading', value: "var(--vc-font-heading)" }
   ];
 
+  /** Font-size tokens rendered with sample previews. */
   scale = [
     { token: '--vc-font-size-3xl', label: 'Display', value: '34px', preview: '3XL / 34px' },
     { token: '--vc-font-size-2xl', label: 'Hero', value: '28px', preview: '2XL / 28px' },
@@ -25,6 +28,7 @@ export class TypographyPageComponent {
     { token: '--vc-font-size-xs', label: 'Caption', value: '12px', preview: 'XS / 12px' }
   ];
 
+  /** Font-weight tokens rendered with numeric values. */
   weights = [
     { token: '--vc-font-weight-regular', label: 'Regular', value: 400 },
     { token: '--vc-font-weight-medium', label: 'Medium', value: 500 },

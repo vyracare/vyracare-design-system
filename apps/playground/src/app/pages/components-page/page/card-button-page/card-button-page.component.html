@@ -1,0 +1,34 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Card Button</vc-heading>
+    <vc-text>
+      Use Card Button para atalhos grandes e clicaveis, como fluxos de cadastro,
+      agenda ou areas de trabalho.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Usabilidade</vc-heading>
+      <div class="component-page__stack">
+        <vc-card-button
+          title="Cadastro de pacientes"
+          subtitle="Prontuarios e historico clinico"
+          icon="people"
+        ></vc-card-button>
+        <vc-card-button
+          title="Agenda clinica"
+          subtitle="Acompanhe os atendimentos"
+          icon="calendar-check"
+          href="#"
+        ></vc-card-button>
+        <vc-card-button
+          title="Relatorios"
+          subtitle="Exemplo sem icone lateral"
+          [showIcon]="false"
+          [showAction]="true"
+        ></vc-card-button>
+      </div>
+    </div>
+  </vc-card>
+</section>

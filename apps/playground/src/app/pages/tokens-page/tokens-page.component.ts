@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
 
+/** Playground page that documents color tokens and computed CSS variable values. */
 @Component({
   selector: 'playground-tokens-page',
   standalone: true,
@@ -10,6 +11,7 @@ import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
   styleUrls: ['./tokens-page.component.scss']
 })
 export class TokensPageComponent implements OnInit {
+  /** Static color palettes shown as visual swatches. */
   palettes = [
     {
       title: 'Brand',
@@ -85,6 +87,7 @@ export class TokensPageComponent implements OnInit {
     }
   ];
 
+  /** CSS variable groups resolved from the active document styles. */
   groups = [
     {
       title: 'Semantic',
@@ -147,8 +150,10 @@ export class TokensPageComponent implements OnInit {
     }
   ];
 
+  /** Runtime map with computed values for each documented CSS variable. */
   values = new Map<string, string>();
 
+  /** Reads computed CSS variable values from the browser document. */
   ngOnInit(): void {
     if (typeof window === 'undefined') {
       return;
