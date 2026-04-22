@@ -300,10 +300,20 @@ jobs:
             --repository "$CODEARTIFACT_REPO" \
             --region "$AWS_REGION"
 
-      - name: Publish to CodeArtifact
-        working-directory: ${{ steps.resolve.outputs.workdir }}
+      - name: Validate package output
+        working-directory: ${{ steps.resolve.outputs.workdir }}/dist
         shell: bash
-        run: npm run release
+        run: |
+          set -euo pipefail
+          test -f package.json
+          test -f index.d.ts
+          test -f fesm2022/vyracare-design-system.mjs
+          test -f styles/_index.scss
+
+      - name: Publish to CodeArtifact
+        working-directory: ${{ steps.resolve.outputs.workdir }}/dist
+        shell: bash
+        run: npm publish
 
       - name: Deploy Storybook to S3
         shell: bash
