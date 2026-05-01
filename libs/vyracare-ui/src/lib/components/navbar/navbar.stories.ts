@@ -7,6 +7,7 @@ const meta: Meta<VcNavbarComponent> = {
   component: VcNavbarComponent,
   tags: ['autodocs'],
   args: {
+    logoClickable: true,
     notifications: [
       {
         id: 'agenda',

@@ -25,6 +25,12 @@ describe('NavbarPageComponent', () => {
     component.handleSearch('pacientes');
     expect(component.lastInteraction).toContain('Busca');
 
+    component.handleSearchSubmit('pacientes');
+    expect(component.lastInteraction).toContain('Pesquisa enviada');
+
+    component.handleLogoClick();
+    expect(component.lastInteraction).toContain('voltar para a raiz');
+
     component.handleViewAll();
     expect(component.lastInteraction).toContain('ver todas');
   });

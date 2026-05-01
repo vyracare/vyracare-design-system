@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, signal } from '@angular/core';
 
 import { VcAvatarComponent } from '../avatar/avatar.component';
 import { VcIconButtonComponent } from '../icon-button/icon-button.component';
@@ -25,6 +25,10 @@ export class VcNavbarComponent {
   @Input() brandAccent = 'Care';
   /** Supporting description rendered below the logo mark. */
   @Input() brandSubtitle = 'Gestao integrada para clinicas e profissionais de saude';
+  /** Enables interaction on the logo area so it can be used as a home action. */
+  @Input({ transform: booleanAttribute }) logoClickable = false;
+  /** Accessibility label announced when the clickable logo is focused. */
+  @Input() logoAriaLabel = 'Voltar para a pagina inicial';
   /** Placeholder rendered by the search input. */
   @Input() searchPlaceholder = 'Busque por pacientes, procedimentos ou arquivos';
   /** Current search field value. */
@@ -44,6 +48,10 @@ export class VcNavbarComponent {
 
   /** Emits the current search value while the user types. */
   @Output() searchChange = new EventEmitter<string>();
+  /** Emits the current search value when the user confirms the search. */
+  @Output() searchSubmitted = new EventEmitter<string>();
+  /** Emits when the logo area is selected. */
+  @Output() logoClicked = new EventEmitter<void>();
   /** Emits when a notification item is selected. */
   @Output() notificationSelected = new EventEmitter<VcNotificationItem>();
   /** Emits when the notifications footer action is selected. */
@@ -58,6 +66,21 @@ export class VcNavbarComponent {
   handleSearch(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.searchChange.emit(value);
+  }
+
+  /** Emits the current search value when the user submits the field with Enter. */
+  submitSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchSubmitted.emit(value);
+  }
+
+  /** Emits a home action when the clickable logo area is activated. */
+  handleLogoClick(): void {
+    if (!this.logoClickable) {
+      return;
+    }
+
+    this.logoClicked.emit();
   }
 
   /** Toggles the profile dropdown and prevents document-level closing. */

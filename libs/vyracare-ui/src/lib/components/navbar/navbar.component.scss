@@ -30,6 +30,20 @@
   }
 }
 
+.vc-navbar__logo-area--button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover .vc-navbar__logo-mark,
+  &:focus-visible .vc-navbar__logo-mark {
+    text-decoration: underline;
+    text-underline-offset: 0.18rem;
+  }
+}
+
 .vc-navbar__logo-mark {
   font-size: 1.3rem;
   font-weight: 700;

@@ -12,11 +12,14 @@
       <vc-heading [level]="4">Preview interativo</vc-heading>
       <div class="component-page__canvas">
         <vc-navbar
+          [logoClickable]="true"
           [notifications]="notifications"
           profileName="Lenin Silva"
           profileRole="Administrador"
           profileInitials="LS"
           (searchChange)="handleSearch($event)"
+          (searchSubmitted)="handleSearchSubmit($event)"
+          (logoClicked)="handleLogoClick()"
           (profileActionSelected)="handleProfileAction($event)"
           (notificationSelected)="handleNotification($event)"
           (viewAllNotifications)="handleViewAll()"

@@ -1,8 +1,20 @@
 <header class="vc-navbar">
-  <div class="vc-navbar__logo-area">
-    <span class="vc-navbar__logo-mark">{{ brandLabel }}<span>{{ brandAccent }}</span></span>
-    <p>{{ brandSubtitle }}</p>
-  </div>
+  @if (logoClickable) {
+    <button
+      type="button"
+      class="vc-navbar__logo-area vc-navbar__logo-area--button"
+      [attr.aria-label]="logoAriaLabel"
+      (click)="handleLogoClick()"
+    >
+      <span class="vc-navbar__logo-mark">{{ brandLabel }}<span>{{ brandAccent }}</span></span>
+      <p>{{ brandSubtitle }}</p>
+    </button>
+  } @else {
+    <div class="vc-navbar__logo-area">
+      <span class="vc-navbar__logo-mark">{{ brandLabel }}<span>{{ brandAccent }}</span></span>
+      <p>{{ brandSubtitle }}</p>
+    </div>
+  }
 
   <label class="vc-navbar__search-field">
     <vc-icon name="search" size="md" [decorative]="true"></vc-icon>
@@ -11,6 +23,7 @@
       [value]="searchValue"
       [placeholder]="searchPlaceholder"
       (input)="handleSearch($event)"
+      (keydown.enter)="submitSearch($event)"
     />
   </label>
 

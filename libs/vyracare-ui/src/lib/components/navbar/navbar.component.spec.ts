@@ -38,6 +38,25 @@ describe('VcNavbarComponent', () => {
     expect(searchSpy).toHaveBeenCalledWith('paciente');
   });
 
+  it('emits a search submit event', () => {
+    const searchSubmitSpy = jest.fn();
+    component.searchSubmitted.subscribe(searchSubmitSpy);
+
+    component.submitSearch({ target: { value: 'agenda' } } as unknown as Event);
+
+    expect(searchSubmitSpy).toHaveBeenCalledWith('agenda');
+  });
+
+  it('emits logo click when the logo is interactive', () => {
+    const logoSpy = jest.fn();
+    component.logoClickable = true;
+    component.logoClicked.subscribe(logoSpy);
+
+    component.handleLogoClick();
+
+    expect(logoSpy).toHaveBeenCalled();
+  });
+
   it('toggles the profile dropdown', () => {
     component.toggleProfileMenu(new MouseEvent('click'));
     expect(component.profileMenuOpen()).toBe(true);

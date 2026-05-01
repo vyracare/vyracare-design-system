@@ -45,6 +45,16 @@ export class NavbarPageComponent {
     this.lastInteraction = `Busca: ${value || 'vazio'}`;
   }
 
+  /** Updates the feedback text when the user confirms a search. */
+  handleSearchSubmit(value: string): void {
+    this.lastInteraction = `Pesquisa enviada: ${value || 'vazio'}`;
+  }
+
+  /** Updates the feedback text when the user uses the logo shortcut. */
+  handleLogoClick(): void {
+    this.lastInteraction = 'Acao: voltar para a raiz';
+  }
+
   /** Updates the feedback text when a profile action is selected. */
   handleProfileAction(action: VcNavbarAction): void {
     this.lastInteraction = `Acao de perfil: ${action.label}`;

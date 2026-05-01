@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { VcButtonComponent, VcCardComponent, VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
 
@@ -10,6 +11,8 @@ import { VcButtonComponent, VcCardComponent, VcHeadingComponent, VcTextComponent
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent {
+  constructor(private readonly router: Router) {}
+
   /** Setup steps that explain how to consume the design-system package. */
   installSteps = [
     {
@@ -44,4 +47,14 @@ export class HomePageComponent {
       description: 'Cores, espacamentos e variaveis globais centralizadas em CSS custom properties.'
     }
   ];
+
+  /** Redirects the user to the playground components index. */
+  navigateToComponents(): void {
+    void this.router.navigateByUrl('/componentes');
+  }
+
+  /** Redirects the user to the consolidated tokens page. */
+  navigateToTokens(): void {
+    void this.router.navigateByUrl('/tokens');
+  }
 }
