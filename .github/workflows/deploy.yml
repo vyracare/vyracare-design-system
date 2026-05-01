@@ -123,7 +123,7 @@ jobs:
   publish:
     name: publish
     needs: ci-lib
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore(release):')
     runs-on: ubuntu-latest
 
     steps:
@@ -314,6 +314,8 @@ jobs:
         id: bump_version
         working-directory: ${{ steps.resolve.outputs.workdir }}
         shell: bash
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           npm run version:ci
