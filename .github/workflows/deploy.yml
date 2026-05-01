@@ -224,11 +224,11 @@ jobs:
         if: steps.detect_infra.outputs.storybook_need_infra == 'true' || steps.detect_infra.outputs.playground_need_infra == 'true'
         shell: bash
         env:
-          GH_INFRA_REPO_TOKEN: ${{ secrets.GH_INFRA_REPO_TOKEN }}
+          INFRA_REPO_TOKEN: ${{ secrets.GH_INFRA_REPO_TOKEN || secrets.PAT_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "${GH_INFRA_REPO_TOKEN:-}" ]; then
-            echo "GH_INFRA_REPO_TOKEN secret is required to checkout $INFRA_REPOSITORY."
+          if [ -z "${INFRA_REPO_TOKEN:-}" ]; then
+            echo "GH_INFRA_REPO_TOKEN or PAT_TOKEN secret is required to checkout $INFRA_REPOSITORY."
             exit 1
           fi
 
@@ -237,7 +237,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ env.INFRA_REPOSITORY }}
-          token: ${{ secrets.GH_INFRA_REPO_TOKEN }}
+          token: ${{ secrets.GH_INFRA_REPO_TOKEN || secrets.PAT_TOKEN }}
           path: infra-cloudfront
 
       - name: Provision missing static hosts with Terraform
