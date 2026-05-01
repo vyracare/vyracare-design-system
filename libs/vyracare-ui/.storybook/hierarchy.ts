@@ -6,7 +6,7 @@ export const storybookHierarchy = [
   'Fundations',
   ['Heading', 'Label', 'Text', 'Icon', 'Button'],
   'Components',
-  ['Card Button', 'Card', 'List'],
+  ['Avatar', 'Icon Button', 'Navbar', 'Notifications', 'Sidebar', 'Card Button', 'Card', 'List'],
   'Forms',
   ['Input', 'Search', 'Date', 'Select'],
   'Styles',

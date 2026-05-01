@@ -28,6 +28,12 @@ export class ComponentsPageComponent {
   /** Shortcut cards rendered in the components overview. */
   components: ComponentLink[] = [
     {
+      title: 'Avatar',
+      description: 'Representacao de usuario com iniciais, imagem e variacoes de tamanho.',
+      icon: 'person-circle',
+      path: '/componentes/avatar'
+    },
+    {
       title: 'Button',
       description: 'Acoes principais, secundarias, ghost e full width.',
       icon: 'cursor',
@@ -46,10 +52,34 @@ export class ComponentsPageComponent {
       path: '/componentes/card'
     },
     {
+      title: 'Icon Button',
+      description: 'Acao compacta para busca, menus, alertas e navegacao contextual.',
+      icon: 'app-indicator',
+      path: '/componentes/icon-button'
+    },
+    {
       title: 'List',
       description: 'Lista vertical para opcoes, atalhos e conteudos navegaveis.',
       icon: 'list-check',
       path: '/componentes/list'
+    },
+    {
+      title: 'Navbar',
+      description: 'Topo de navegacao com marca, busca, notificacoes e menu de perfil.',
+      icon: 'layout-text-sidebar',
+      path: '/componentes/navbar'
+    },
+    {
+      title: 'Notifications',
+      description: 'Bell dropdown para notificacoes recentes e acoes rapidas.',
+      icon: 'bell',
+      path: '/componentes/notifications'
+    },
+    {
+      title: 'Sidebar',
+      description: 'Navegacao lateral com agrupamento por contexto e card de suporte.',
+      icon: 'layout-sidebar-inset',
+      path: '/componentes/sidebar'
     }
   ];
 }

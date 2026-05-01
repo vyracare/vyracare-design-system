@@ -30,10 +30,15 @@ export class AppComponent {
   /** Links nested under the Components dropdown in the lateral menu. */
   componentLinks: PlaygroundLink[] = [
     { path: 'componentes', label: 'Todos' },
+    { path: 'componentes/avatar', label: 'Avatar' },
     { path: 'componentes/button', label: 'Button' },
     { path: 'componentes/card-button', label: 'Card Button' },
     { path: 'componentes/card', label: 'Card' },
-    { path: 'componentes/list', label: 'List' }
+    { path: 'componentes/icon-button', label: 'Icon Button' },
+    { path: 'componentes/list', label: 'List' },
+    { path: 'componentes/navbar', label: 'Navbar' },
+    { path: 'componentes/notifications', label: 'Notifications' },
+    { path: 'componentes/sidebar', label: 'Sidebar' }
   ];
 
   /** Controls the open state of the Components dropdown. */

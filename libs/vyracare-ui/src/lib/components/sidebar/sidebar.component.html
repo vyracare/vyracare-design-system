@@ -1,0 +1,29 @@
+<aside class="vc-sidebar">
+  @for (group of groups; track group.label) {
+    <div class="vc-sidebar__group">
+      <p class="vc-sidebar__label">{{ group.label }}</p>
+
+      @for (item of group.items; track item.id) {
+        <button
+          type="button"
+          class="vc-sidebar__item"
+          [class.is-active]="isActive(item)"
+          (click)="selectItem(item)"
+        >
+          @if (item.icon) {
+            <vc-icon [name]="item.icon" size="sm" [decorative]="true"></vc-icon>
+          }
+          <span>{{ item.label }}</span>
+        </button>
+      }
+    </div>
+  }
+
+  @if (support) {
+    <div class="vc-sidebar__support">
+      <strong>{{ support.title }}</strong>
+      <p>{{ support.description }}</p>
+      <a [href]="support.linkHref">{{ support.linkLabel }}</a>
+    </div>
+  }
+</aside>

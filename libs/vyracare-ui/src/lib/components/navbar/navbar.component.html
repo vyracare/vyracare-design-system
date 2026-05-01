@@ -1,0 +1,52 @@
+<header class="vc-navbar">
+  <div class="vc-navbar__logo-area">
+    <span class="vc-navbar__logo-mark">{{ brandLabel }}<span>{{ brandAccent }}</span></span>
+    <p>{{ brandSubtitle }}</p>
+  </div>
+
+  <label class="vc-navbar__search-field">
+    <vc-icon name="search" size="md" [decorative]="true"></vc-icon>
+    <input
+      type="search"
+      [value]="searchValue"
+      [placeholder]="searchPlaceholder"
+      (input)="handleSearch($event)"
+    />
+  </label>
+
+  <vc-notifications
+    [items]="notifications"
+    (itemSelected)="notificationSelected.emit($event)"
+    (viewAll)="viewAllNotifications.emit()"
+  ></vc-notifications>
+
+  <div class="vc-navbar__profile" (click)="$event.stopPropagation()">
+    <vc-avatar
+      [initials]="profileInitials"
+      [name]="profileName"
+      [imageUrl]="profileImageUrl"
+    ></vc-avatar>
+
+    <div class="vc-navbar__profile-text">
+      <strong>{{ profileName }}</strong>
+      <small>{{ profileRole }}</small>
+    </div>
+
+    <vc-icon-button
+      [icon]="profileMenuOpen() ? 'chevron-up' : 'chevron-down'"
+      ariaLabel="Abrir menu do perfil"
+      variant="soft"
+      size="sm"
+      [active]="profileMenuOpen()"
+      (action)="toggleProfileMenu($event)"
+    ></vc-icon-button>
+
+    <div class="vc-navbar__profile-dropdown" [class.open]="profileMenuOpen()">
+      @for (action of profileActions; track action.id) {
+        <button type="button" (click)="selectProfileAction(action, $event)">
+          {{ action.label }}
+        </button>
+      }
+    </div>
+  </div>
+</header>

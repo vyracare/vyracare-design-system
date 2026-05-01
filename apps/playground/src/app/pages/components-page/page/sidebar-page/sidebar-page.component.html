@@ -1,0 +1,24 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Sidebar</vc-heading>
+    <vc-text>
+      A Sidebar organiza a navegacao principal por contexto clinico e operacional, mantendo suporte
+      e atalhos sempre visiveis.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Preview interativo</vc-heading>
+      <div class="component-page__canvas">
+        <vc-sidebar
+          [groups]="groups"
+          [support]="support"
+          [activeItemId]="selectedItemId"
+          (itemSelected)="handleSelection($event)"
+        ></vc-sidebar>
+      </div>
+      <vc-text [muted]="true">Ultimo item selecionado: {{ selectedItemLabel }}</vc-text>
+    </div>
+  </vc-card>
+</section>

@@ -1,0 +1,28 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Navbar</vc-heading>
+    <vc-text>
+      A Navbar reune marca, busca, notificacoes e menu do usuario em uma estrutura consistente com
+      o wrapper atual do app shell.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Preview interativo</vc-heading>
+      <div class="component-page__canvas">
+        <vc-navbar
+          [notifications]="notifications"
+          profileName="Lenin Silva"
+          profileRole="Administrador"
+          profileInitials="LS"
+          (searchChange)="handleSearch($event)"
+          (profileActionSelected)="handleProfileAction($event)"
+          (notificationSelected)="handleNotification($event)"
+          (viewAllNotifications)="handleViewAll()"
+        ></vc-navbar>
+      </div>
+      <vc-text [muted]="true">{{ lastInteraction }}</vc-text>
+    </div>
+  </vc-card>
+</section>

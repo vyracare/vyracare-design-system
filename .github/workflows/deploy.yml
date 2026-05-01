@@ -17,7 +17,8 @@ env:
   AWS_ACCOUNT_ID: '510253726006'
   CODEARTIFACT_DOMAIN: vyracare-design-system
   CODEARTIFACT_REPO: vyracare-design-system
-  S3_BUCKET_NAME: vyracare-design-system-storybook
+  STORYBOOK_BUCKET_NAME: vyracare-design-system-storybook
+  PLAYGROUND_BUCKET_NAME: vyracare-design-system-playground
   INFRA_REPOSITORY: vyracare/vyracare-infra-cloudfront-bucket
 
 jobs:
@@ -93,6 +94,11 @@ jobs:
         shell: bash
         run: npm run storybook:build
 
+      - name: Build Playground
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run playground:build
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
@@ -105,6 +111,13 @@ jobs:
         with:
           name: storybook
           path: ${{ steps.resolve.outputs.workdir }}/dist/storybook
+          if-no-files-found: error
+
+      - name: Upload Playground artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: playground
+          path: ${{ steps.resolve.outputs.workdir }}/dist/playground
           if-no-files-found: error
 
   publish:
@@ -169,37 +182,46 @@ jobs:
           set -euo pipefail
           aws sts get-caller-identity >/dev/null
 
-      - name: Detect bucket and CloudFront
+      - name: Detect static hosts
         id: detect_infra
         shell: bash
         run: |
           set -euo pipefail
 
-          if aws s3api head-bucket --bucket "$S3_BUCKET_NAME" >/dev/null 2>&1; then
-            s3_exists=true
-          else
-            s3_exists=false
-          fi
+          detect_target() {
+            local prefix="$1"
+            local bucket="$2"
+            local env_var_name="$3"
+            local s3_exists=false
+            local cloudfront_id=""
 
-          cloudfront_id=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Origins.Items[0].DomainName, '${S3_BUCKET_NAME}')].Id | [0]" --output text)
-          if [ -z "$cloudfront_id" ] || [ "$cloudfront_id" = "None" ]; then
-            cloudfront_id=""
-          fi
+            if aws s3api head-bucket --bucket "$bucket" >/dev/null 2>&1; then
+              s3_exists=true
+            fi
 
-          echo "S3 exists: $s3_exists"
-          echo "CloudFront ID: ${cloudfront_id:-none}"
+            cloudfront_id=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Origins.Items[0].DomainName, '${bucket}')].Id | [0]" --output text)
+            if [ -z "$cloudfront_id" ] || [ "$cloudfront_id" = "None" ]; then
+              cloudfront_id=""
+            fi
 
-          if [ "$s3_exists" = true ] && [ -n "$cloudfront_id" ]; then
-            echo "need_infra=false" >> "$GITHUB_OUTPUT"
-            echo "cloudfront_distribution_id=$cloudfront_id" >> "$GITHUB_OUTPUT"
-            echo "CLOUDFRONT_DISTRIBUTION_ID=$cloudfront_id" >> "$GITHUB_ENV"
-          else
-            echo "need_infra=true" >> "$GITHUB_OUTPUT"
-            echo "cloudfront_distribution_id=" >> "$GITHUB_OUTPUT"
-          fi
+            echo "${prefix} bucket exists: $s3_exists"
+            echo "${prefix} CloudFront ID: ${cloudfront_id:-none}"
+
+            if [ "$s3_exists" = true ] && [ -n "$cloudfront_id" ]; then
+              echo "${prefix}_need_infra=false" >> "$GITHUB_OUTPUT"
+              echo "${prefix}_cloudfront_distribution_id=$cloudfront_id" >> "$GITHUB_OUTPUT"
+              echo "${env_var_name}=$cloudfront_id" >> "$GITHUB_ENV"
+            else
+              echo "${prefix}_need_infra=true" >> "$GITHUB_OUTPUT"
+              echo "${prefix}_cloudfront_distribution_id=" >> "$GITHUB_OUTPUT"
+            fi
+          }
+
+          detect_target storybook "$STORYBOOK_BUCKET_NAME" STORYBOOK_CLOUDFRONT_DISTRIBUTION_ID
+          detect_target playground "$PLAYGROUND_BUCKET_NAME" PLAYGROUND_CLOUDFRONT_DISTRIBUTION_ID
 
       - name: Validate infra repository token
-        if: steps.detect_infra.outputs.need_infra == 'true'
+        if: steps.detect_infra.outputs.storybook_need_infra == 'true' || steps.detect_infra.outputs.playground_need_infra == 'true'
         shell: bash
         env:
           GH_INFRA_REPO_TOKEN: ${{ secrets.GH_INFRA_REPO_TOKEN }}
@@ -211,15 +233,15 @@ jobs:
           fi
 
       - name: Checkout infra cloudfront bucket
-        if: steps.detect_infra.outputs.need_infra == 'true'
+        if: steps.detect_infra.outputs.storybook_need_infra == 'true' || steps.detect_infra.outputs.playground_need_infra == 'true'
         uses: actions/checkout@v4
         with:
           repository: ${{ env.INFRA_REPOSITORY }}
           token: ${{ secrets.GH_INFRA_REPO_TOKEN }}
           path: infra-cloudfront
 
-      - name: Provision S3 and CloudFront with Terraform
-        if: steps.detect_infra.outputs.need_infra == 'true'
+      - name: Provision missing static hosts with Terraform
+        if: steps.detect_infra.outputs.storybook_need_infra == 'true' || steps.detect_infra.outputs.playground_need_infra == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -227,19 +249,38 @@ jobs:
           cd "$GITHUB_WORKSPACE/infra-cloudfront"
           terraform init
 
-          comment="${S3_BUCKET_NAME} em Angular CloudFront"
+          provision_target() {
+            local bucket="$1"
+            local env_var_name="$2"
+            local workspace_name
 
-          if aws s3api head-bucket --bucket "$S3_BUCKET_NAME" >/dev/null 2>&1; then
-            terraform import aws_s3_bucket.app_bucket "$S3_BUCKET_NAME" || true
+            workspace_name="${bucket//./-}"
+            workspace_name="${workspace_name//_/-}"
+
+            terraform workspace select "$workspace_name" >/dev/null 2>&1 || terraform workspace new "$workspace_name" >/dev/null
+
+            comment="${bucket} em Angular CloudFront"
+
+            if aws s3api head-bucket --bucket "$bucket" >/dev/null 2>&1; then
+              terraform import aws_s3_bucket.app_bucket "$bucket" || true
+            fi
+
+            terraform apply -auto-approve \
+              -var "project_name=$bucket" \
+              -var "region=$AWS_REGION" \
+              -var "cloudfront_comment=$comment"
+
+            cloudfront_id=$(terraform output -raw cloudfront_distribution_id)
+            echo "${env_var_name}=$cloudfront_id" >> "$GITHUB_ENV"
+          }
+
+          if [ "${{ steps.detect_infra.outputs.storybook_need_infra }}" = "true" ]; then
+            provision_target "$STORYBOOK_BUCKET_NAME" STORYBOOK_CLOUDFRONT_DISTRIBUTION_ID
           fi
 
-          terraform apply -auto-approve \
-            -var "project_name=$S3_BUCKET_NAME" \
-            -var "region=$AWS_REGION" \
-            -var "cloudfront_comment=$comment"
-
-          cloudfront_id=$(terraform output -raw cloudfront_distribution_id)
-          echo "CLOUDFRONT_DISTRIBUTION_ID=$cloudfront_id" >> "$GITHUB_ENV"
+          if [ "${{ steps.detect_infra.outputs.playground_need_infra }}" = "true" ]; then
+            provision_target "$PLAYGROUND_BUCKET_NAME" PLAYGROUND_CLOUDFRONT_DISTRIBUTION_ID
+          fi
 
       - name: Ensure package-lock.json
         working-directory: ${{ steps.resolve.outputs.workdir }}
@@ -289,6 +330,11 @@ jobs:
         shell: bash
         run: npm run storybook:build
 
+      - name: Build Playground
+        working-directory: ${{ steps.resolve.outputs.workdir }}
+        shell: bash
+        run: npm run playground:build
+
       - name: Login to CodeArtifact
         shell: bash
         run: |
@@ -319,16 +365,35 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          aws s3 sync "${{ steps.resolve.outputs.workdir }}/dist/storybook" "s3://$S3_BUCKET_NAME" --delete
+          aws s3 sync "${{ steps.resolve.outputs.workdir }}/dist/storybook" "s3://$STORYBOOK_BUCKET_NAME" --delete
 
-      - name: Invalidate CloudFront cache
+      - name: Deploy Playground to S3
         shell: bash
         run: |
           set -euo pipefail
-          if [ -n "${CLOUDFRONT_DISTRIBUTION_ID:-}" ]; then
-            aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+          playground_dist="${{ steps.resolve.outputs.workdir }}/dist/playground"
+
+          if [ -d "$playground_dist/browser" ]; then
+            playground_dist="$playground_dist/browser"
+          fi
+
+          aws s3 sync "$playground_dist" "s3://$PLAYGROUND_BUCKET_NAME" --delete
+
+      - name: Invalidate CloudFront caches
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -n "${STORYBOOK_CLOUDFRONT_DISTRIBUTION_ID:-}" ]; then
+            aws cloudfront create-invalidation --distribution-id "$STORYBOOK_CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
           else
-            echo "Skipping CloudFront invalidation (distribution not set)."
+            echo "Skipping Storybook CloudFront invalidation (distribution not set)."
+          fi
+
+          if [ -n "${PLAYGROUND_CLOUDFRONT_DISTRIBUTION_ID:-}" ]; then
+            aws cloudfront create-invalidation --distribution-id "$PLAYGROUND_CLOUDFRONT_DISTRIBUTION_ID" --paths "/*"
+          else
+            echo "Skipping Playground CloudFront invalidation (distribution not set)."
           fi
 
       - name: Commit and push version bump

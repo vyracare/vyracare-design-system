@@ -1,0 +1,31 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Icon Button</vc-heading>
+    <vc-text>
+      Use Icon Button para acoes compactas como abrir menus, executar buscas, expandir itens ou
+      indicar atalhos de suporte.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Variantes</vc-heading>
+      <div class="component-page__row">
+        <vc-icon-button icon="search" ariaLabel="Buscar" variant="ghost"></vc-icon-button>
+        <vc-icon-button icon="bell" ariaLabel="Notificacoes" variant="soft"></vc-icon-button>
+        <vc-icon-button icon="box-arrow-right" ariaLabel="Sair" variant="solid"></vc-icon-button>
+      </div>
+    </div>
+  </vc-card>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Tamanhos e estado ativo</vc-heading>
+      <div class="component-page__row">
+        <vc-icon-button icon="chevron-left" ariaLabel="Voltar" size="sm"></vc-icon-button>
+        <vc-icon-button icon="chevron-down" ariaLabel="Expandir" size="md" [active]="true"></vc-icon-button>
+        <vc-icon-button icon="gear" ariaLabel="Configuracoes" size="lg"></vc-icon-button>
+      </div>
+    </div>
+  </vc-card>
+</section>

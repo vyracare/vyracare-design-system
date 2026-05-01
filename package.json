@@ -5,6 +5,7 @@
   "description": "Vyracare Design System (Angular) - tokens + componentes + storybook.",
   "scripts": {
     "build": "ng run design-system:build",
+    "playground:build": "ng run playground:build",
     "prepare": "husky",
     "start": "ng serve playground --port 4205",
     "test": "jest --coverage",

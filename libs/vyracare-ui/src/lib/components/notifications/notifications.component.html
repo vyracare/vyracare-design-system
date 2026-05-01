@@ -1,0 +1,48 @@
+<div class="vc-notifications">
+  <div class="vc-notifications__trigger">
+    <vc-icon-button
+      icon="bell"
+      ariaLabel="{{ triggerLabel }}"
+      variant="ghost"
+      [active]="open()"
+      (action)="togglePanel($event)"
+    ></vc-icon-button>
+
+    @if (badgeCount > 0) {
+      <span class="vc-notifications__badge">{{ badgeCount }}</span>
+    }
+  </div>
+
+  <div
+    class="vc-notifications__panel"
+    [class.open]="open()"
+    (click)="$event.stopPropagation()"
+  >
+    <h4>{{ title }}</h4>
+
+    @if (items.length) {
+      <ul>
+        @for (item of items; track item.id) {
+          <li>
+            <button type="button" (click)="selectItem(item, $event)">
+              <strong>{{ item.title }}</strong>
+              <p>{{ item.description }}</p>
+              @if (item.time) {
+                <small>{{ item.time }}</small>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="vc-notifications__empty">
+        <strong>Tudo em dia</strong>
+        <p>Nenhuma notificacao recente para exibir.</p>
+      </div>
+    }
+
+    <button type="button" class="vc-notifications__view-all" (click)="handleViewAll($event)">
+      {{ actionLabel }}
+    </button>
+  </div>
+</div>

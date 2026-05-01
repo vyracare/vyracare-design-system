@@ -1,0 +1,36 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Avatar</vc-heading>
+    <vc-text>
+      Use Avatar para representar o usuario logado, equipes clinicas e responsaveis por uma acao.
+      O componente suporta imagem, fallback por iniciais e variacoes de tamanho.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Tamanhos</vc-heading>
+      <div class="component-page__row">
+        <vc-avatar initials="VC" size="sm"></vc-avatar>
+        <vc-avatar initials="VC" size="md"></vc-avatar>
+        <vc-avatar initials="VC" size="lg"></vc-avatar>
+        <vc-avatar initials="VC" size="xl"></vc-avatar>
+      </div>
+    </div>
+  </vc-card>
+
+  <vc-card>
+    <div class="component-page__section">
+      <vc-heading [level]="4">Tons e imagem</vc-heading>
+      <div class="component-page__row">
+        <vc-avatar initials="LS" tone="brand"></vc-avatar>
+        <vc-avatar initials="LS" tone="cool"></vc-avatar>
+        <vc-avatar initials="LS" tone="neutral"></vc-avatar>
+        <vc-avatar
+          name="Lenin Silva"
+          imageUrl="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80"
+        ></vc-avatar>
+      </div>
+    </div>
+  </vc-card>
+</section>

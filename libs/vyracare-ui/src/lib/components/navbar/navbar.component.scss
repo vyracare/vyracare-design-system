@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+.vc-navbar {
+  display: grid;
+  grid-template-columns: auto minmax(22rem, 1fr) auto auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--vc-color-surface);
+  border-bottom: 1px solid rgba(90, 59, 231, 0.1);
+  box-shadow: 0 8px 30px rgba(44, 56, 120, 0.06);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}
+
+.vc-navbar__logo-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--vc-color-text-muted);
+  }
+}
+
+.vc-navbar__logo-mark {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--vc-color-primary);
+
+  span {
+    color: var(--vc-color-accent);
+  }
+}
+
+.vc-navbar__search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid rgba(90, 59, 231, 0.2);
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  min-width: 0;
+  background: var(--vc-color-surface);
+
+  .vc-icon {
+    color: var(--vc-color-text-muted);
+  }
+
+  input {
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--vc-color-text-primary);
+    background: transparent;
+    outline: none;
+  }
+}
+
+.vc-navbar__profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vc-navbar__profile-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  strong {
+    color: var(--vc-color-text-primary);
+  }
+
+  small {
+    color: var(--vc-color-text-muted);
+  }
+}
+
+.vc-navbar__profile-dropdown {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  right: 0;
+  width: 12rem;
+  padding: 0.75rem;
+  border-radius: 0.95rem;
+  background: var(--vc-color-surface);
+  border: 1px solid rgba(90, 59, 231, 0.1);
+  box-shadow: 0 20px 50px rgba(44, 56, 120, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  button {
+    width: 100%;
+    border: none;
+    border-radius: 0.7rem;
+    padding: 0.6rem 0.75rem;
+    background: transparent;
+    text-align: left;
+    font-weight: 600;
+    color: var(--vc-color-text-primary);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--vc-color-highlight);
+      color: var(--vc-color-primary);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<button
+  [class]="buttonClasses.join(' ')"
+  [attr.aria-label]="ariaLabel || title || icon"
+  [attr.title]="title || null"
+  [type]="type"
+  [disabled]="disabled"
+  (click)="handleClick($event)"
+>
+  <vc-icon [name]="icon" [decorative]="true" size="md"></vc-icon>
+</button>

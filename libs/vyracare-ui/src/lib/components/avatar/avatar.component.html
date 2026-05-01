@@ -1,0 +1,5 @@
+@if (hasImage) {
+  <img class="vc-avatar__image" [src]="imageUrl" [alt]="name || fallbackInitials || 'Avatar'" />
+} @else {
+  <span class="vc-avatar__initials">{{ fallbackInitials || '?' }}</span>
+}

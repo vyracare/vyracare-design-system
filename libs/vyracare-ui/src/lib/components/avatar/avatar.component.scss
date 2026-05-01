@@ -1,0 +1,54 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  color: var(--vc-color-surface);
+  background: linear-gradient(135deg, var(--vc-color-gradient-primary), var(--vc-color-accent));
+  box-shadow: 0 16px 30px rgba(90, 59, 231, 0.18);
+}
+
+:host(.vc-avatar--sm) {
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.75rem;
+}
+
+:host(.vc-avatar--md) {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+:host(.vc-avatar--lg) {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+:host(.vc-avatar--xl) {
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.15rem;
+}
+
+:host(.vc-avatar--cool) {
+  background: linear-gradient(135deg, var(--vc-color-info), var(--vc-color-primary));
+}
+
+:host(.vc-avatar--neutral) {
+  background: linear-gradient(135deg, var(--vc-color-neutral-600), var(--vc-color-neutral-400));
+}
+
+.vc-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vc-avatar__initials {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}

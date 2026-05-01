@@ -1,0 +1,23 @@
+<section class="component-page">
+  <header class="component-page__header">
+    <vc-heading [level]="2">Notifications</vc-heading>
+    <vc-text>
+      Use o dropdown de notificacoes para comunicar eventos recentes sem retirar o usuario do fluxo
+      principal de trabalho.
+    </vc-text>
+  </header>
+
+  <vc-card>
+    <div class="component-page__section component-page__section--topbar">
+      <vc-heading [level]="4">Preview interativo</vc-heading>
+      <div class="component-page__topbar">
+        <vc-notifications
+          [items]="notifications"
+          (itemSelected)="handleSelection($event)"
+          (viewAll)="handleViewAll()"
+        ></vc-notifications>
+      </div>
+      <vc-text [muted]="true">{{ lastSelection }}</vc-text>
+    </div>
+  </vc-card>
+</section>

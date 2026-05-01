@@ -18,7 +18,7 @@ describe('ComponentsPageComponent', () => {
 
   it('renders component navigation cards', () => {
     const cards = fixture.nativeElement.querySelectorAll('vc-card');
-    expect(cards.length).toBe(4);
+    expect(cards.length).toBe(9);
   });
 
   it('renders component links', () => {
@@ -26,16 +26,31 @@ describe('ComponentsPageComponent', () => {
     const links = Array.from(anchors).map((link) => link.getAttribute('href'));
 
     expect(links).toEqual(
-      ['/componentes/button', '/componentes/card-button', '/componentes/card', '/componentes/list']
+      [
+        '/componentes/avatar',
+        '/componentes/button',
+        '/componentes/card-button',
+        '/componentes/card',
+        '/componentes/icon-button',
+        '/componentes/list',
+        '/componentes/navbar',
+        '/componentes/notifications',
+        '/componentes/sidebar'
+      ]
     );
   });
 
   it('renders component titles', () => {
     const content = fixture.nativeElement.textContent;
 
+    expect(content).toContain('Avatar');
     expect(content).toContain('Button');
     expect(content).toContain('Card Button');
     expect(content).toContain('Card');
+    expect(content).toContain('Icon Button');
     expect(content).toContain('List');
+    expect(content).toContain('Navbar');
+    expect(content).toContain('Notifications');
+    expect(content).toContain('Sidebar');
   });
 });
