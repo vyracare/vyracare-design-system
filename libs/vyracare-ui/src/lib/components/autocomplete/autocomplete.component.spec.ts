@@ -98,5 +98,8 @@ describe('VcAutocompleteComponent', () => {
     fixture.componentRef.setInput('options', [{ value: '1', label: 'Maria', description: 'maria@email.com' }]);
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('maria@email.com');
+    expect(fixture.nativeElement.querySelector('[role="listbox"]')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('[role="option"]')?.getAttribute('aria-selected')).toBe('false');
+    expect(fixture.nativeElement.querySelector('.vc-autocomplete__option-action')?.textContent).toContain('Selecionar');
   });
 });

@@ -1,12 +1,101 @@
 @use '../../styles/mixins' as mixins;
-.vc-autocomplete { position: relative; display: flex; flex-direction: column; gap: .5rem; }
+
+:host {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: visible;
+}
+
+:host:has(.vc-autocomplete--open) {
+  z-index: 100;
+}
+
+.vc-autocomplete {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: .5rem;
+  overflow: visible;
+}
+
 .vc-autocomplete__label { @include mixins.label-base; }
 .vc-autocomplete__label span { color: var(--vc-color-state-danger-text); }
-.vc-autocomplete__input { @include mixins.input-base; width: 100%; }
-.vc-autocomplete__panel { position: absolute; z-index: 30; top: calc(100% - .1rem); left: 0; right: 0; overflow: hidden; max-height: 18rem; overflow-y: auto; border: 1px solid var(--vc-color-border-default, #ded8ff); border-radius: .75rem; background: #fff; box-shadow: 0 16px 36px rgba(44,56,120,.18); }
-.vc-autocomplete__panel button { display: flex; width: 100%; flex-direction: column; gap: .2rem; border: 0; border-bottom: 1px solid #eeebfa; padding: .75rem .9rem; background: #fff; color: var(--vc-color-text-default, #333b60); cursor: pointer; text-align: left; }
-.vc-autocomplete__panel button:hover, .vc-autocomplete__panel button.active, .vc-autocomplete__panel button:focus-visible { background: #f5f2ff; outline: 0; }
-.vc-autocomplete__panel small { color: var(--vc-color-text-muted, #6f7494); }
-.vc-autocomplete__message { display: block; padding: .8rem .9rem; color: var(--vc-color-text-muted, #6f7494); }
+.vc-autocomplete__input { @include mixins.input-base; width: 100%; box-sizing: border-box; }
+
+.vc-autocomplete__panel {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + .5rem);
+  left: 0;
+  width: 100%;
+  min-width: min(100%, 18rem);
+  max-height: 18rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--vc-color-border-default, #ded8ff);
+  border-radius: 1rem;
+  background: var(--vc-color-surface, #fff);
+  box-shadow: 0 20px 48px rgba(44, 56, 120, .24), 0 4px 12px rgba(44, 56, 120, .1);
+  isolation: isolate;
+  animation: vc-autocomplete-enter .14s ease-out;
+  overscroll-behavior: contain;
+}
+
+.vc-autocomplete__panel button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid #eeebfa;
+  padding: .85rem 1rem;
+  background: var(--vc-color-surface, #fff);
+  color: var(--vc-color-text-default, #333b60);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.vc-autocomplete__panel button:last-child { border-bottom: 0; }
+.vc-autocomplete__panel button:hover,
+.vc-autocomplete__panel button.active,
+.vc-autocomplete__panel button:focus-visible { background: #f5f2ff; outline: 0; }
+.vc-autocomplete__panel button:focus-visible { box-shadow: inset 3px 0 0 var(--vc-color-primary, #5a3be7); }
+.vc-autocomplete__panel button:disabled { cursor: not-allowed; opacity: .55; }
+
+.vc-autocomplete__option-content {
+  display: grid;
+  min-width: 0;
+  gap: .2rem;
+}
+
+.vc-autocomplete__option-content strong,
+.vc-autocomplete__option-content small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vc-autocomplete__option-content strong { font-weight: 700; }
+.vc-autocomplete__option-content small { color: var(--vc-color-text-muted, #6f7494); }
+.vc-autocomplete__option-action { flex: 0 0 auto; color: var(--vc-color-primary, #5a3be7); font-size: .75rem; font-weight: 700; opacity: 0; }
+.vc-autocomplete__panel button:hover .vc-autocomplete__option-action,
+.vc-autocomplete__panel button.active .vc-autocomplete__option-action,
+.vc-autocomplete__panel button:focus-visible .vc-autocomplete__option-action { opacity: 1; }
+.vc-autocomplete__message { display: block; padding: .9rem 1rem; color: var(--vc-color-text-muted, #6f7494); }
 .vc-autocomplete__message--error, .vc-autocomplete__error { color: var(--vc-color-state-danger-text); }
 .vc-autocomplete__hint, .vc-autocomplete__error { @include mixins.helper-text; }
+
+@keyframes vc-autocomplete-enter {
+  from { opacity: 0; transform: translateY(-.25rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .vc-autocomplete__option-action { display: none; }
+}
