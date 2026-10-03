@@ -43,6 +43,7 @@ export class VcSelectComponent implements ControlValueAccessor {
   value = '';
   /** Disabled state synchronized through ControlValueAccessor. */
   disabled = false;
+  open = false;
 
   private onChange: (value: string) => void = () => undefined;
   private onTouched: () => void = () => undefined;
@@ -71,15 +72,30 @@ export class VcSelectComponent implements ControlValueAccessor {
     this.cdr.markForCheck();
   }
 
+  /** Opens or closes the custom options panel. */
+  toggle(): void {
+    if (!this.disabled) this.open = !this.open;
+  }
+
   /** Emits the selected value through Angular Forms. */
-  handleChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    this.value = target.value;
+  selectOption(value: string, disabled = false): void {
+    if (disabled) return;
+    this.value = value;
     this.onChange(this.value);
+    this.open = false;
+    this.onTouched();
   }
 
   /** Marks the control as touched. */
   markTouched(): void {
     this.onTouched();
+    setTimeout(() => {
+      this.open = false;
+      this.cdr.markForCheck();
+    });
+  }
+
+  get selectedLabel(): string {
+    return this.options.find(option => option.value === this.value)?.label ?? this.placeholder;
   }
 }

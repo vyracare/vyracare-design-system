@@ -1,0 +1,5 @@
+<label class="vc-checkbox" [class.vc-checkbox--disabled]="disabled" [class.vc-checkbox--invalid]="!!error">
+  <input [id]="id" type="checkbox" [checked]="checked" [disabled]="disabled" (change)="toggle($event)" (blur)="touch()" />
+  <span class="vc-checkbox__control" aria-hidden="true">@if (checked) { ✓ }</span>
+  <span class="vc-checkbox__content"><strong>{{ label }}</strong>@if (description) { <small>{{ description }}</small> }@if (error) { <small class="vc-checkbox__error">{{ error }}</small> }</span>
+</label>

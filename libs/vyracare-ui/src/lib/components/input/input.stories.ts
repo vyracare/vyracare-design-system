@@ -37,7 +37,7 @@ const meta: Meta<VcInputComponent> = {
     },
     mask: {
       control: 'select',
-      options: ['', 'phone', 'email', 'date', 'password'],
+      options: ['', 'phone', 'email', 'date', 'password', 'cpf', 'postalCode'],
       description: 'Mascara aplicada ao valor digitado.'
     },
     hint: { control: 'text', description: 'Texto auxiliar exibido abaixo.' },

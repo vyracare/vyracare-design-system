@@ -24,10 +24,13 @@ describe('VcSelectComponent', () => {
     fixture.detectChanges();
 
     const label: HTMLLabelElement = fixture.nativeElement.querySelector('label');
-    const options = fixture.nativeElement.querySelectorAll('option');
+    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('.vc-select__trigger');
+    trigger.click();
+    fixture.detectChanges();
+    const options = fixture.nativeElement.querySelectorAll('.vc-select__options button');
 
     expect(label.textContent).toContain('Especialidade');
-    expect(options.length).toBeGreaterThanOrEqual(2);
+    expect(options.length).toBe(2);
   });
 
   it('updates value on change', () => {
@@ -36,22 +39,14 @@ describe('VcSelectComponent', () => {
     component.registerOnChange(onChange);
     fixture.detectChanges();
 
-    const select: HTMLSelectElement = fixture.nativeElement.querySelector('select');
-    select.value = 'cardio';
-    select.dispatchEvent(new Event('change'));
+    component.selectOption('cardio');
 
     expect(component.value).toBe('cardio');
     expect(onChange).toHaveBeenCalledWith('cardio');
   });
 
   it('handles change and touch before form callbacks are registered', () => {
-    const select = document.createElement('select');
-    const option = document.createElement('option');
-    option.value = 'cardio';
-    select.appendChild(option);
-    select.value = 'cardio';
-
-    expect(() => component.handleChange({ target: select } as unknown as Event)).not.toThrow();
+    expect(() => component.selectOption('cardio')).not.toThrow();
     expect(() => component.markTouched()).not.toThrow();
     expect(component.value).toBe('cardio');
   });
@@ -67,23 +62,34 @@ describe('VcSelectComponent', () => {
     component.writeValue('cardio');
     fixture.detectChanges();
 
-    const select: HTMLSelectElement = fixture.nativeElement.querySelector('select');
-    expect(select.value).toBe('cardio');
+    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('.vc-select__trigger');
+    expect(trigger.textContent).toContain('Cardiologia');
   });
 
   it('disables select when setDisabledState is true', () => {
     component.setDisabledState(true);
     fixture.detectChanges();
-    const select: HTMLSelectElement = fixture.nativeElement.querySelector('select');
-    expect(select.disabled).toBe(true);
+    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('.vc-select__trigger');
+    expect(trigger.disabled).toBe(true);
   });
 
   it('marks touched on blur', () => {
     const onTouched = jest.fn();
     component.registerOnTouched(onTouched);
     fixture.detectChanges();
-    const select: HTMLSelectElement = fixture.nativeElement.querySelector('select');
-    select.dispatchEvent(new Event('blur'));
+    component.markTouched();
     expect(onTouched).toHaveBeenCalled();
+  });
+
+  it('toggles only while enabled and ignores disabled options', () => {
+    component.toggle();
+    expect(component.open).toBe(true);
+    component.selectOption('blocked', true);
+    expect(component.value).toBe('');
+    component.setDisabledState(true);
+    component.open = false;
+    component.toggle();
+    expect(component.open).toBe(false);
+    expect(component.selectedLabel).toBe(component.placeholder);
   });
 });

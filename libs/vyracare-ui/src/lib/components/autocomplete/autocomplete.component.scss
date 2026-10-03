@@ -1,0 +1,12 @@
+@use '../../styles/mixins' as mixins;
+.vc-autocomplete { position: relative; display: flex; flex-direction: column; gap: .5rem; }
+.vc-autocomplete__label { @include mixins.label-base; }
+.vc-autocomplete__label span { color: var(--vc-color-state-danger-text); }
+.vc-autocomplete__input { @include mixins.input-base; width: 100%; }
+.vc-autocomplete__panel { position: absolute; z-index: 30; top: calc(100% - .1rem); left: 0; right: 0; overflow: hidden; max-height: 18rem; overflow-y: auto; border: 1px solid var(--vc-color-border-default, #ded8ff); border-radius: .75rem; background: #fff; box-shadow: 0 16px 36px rgba(44,56,120,.18); }
+.vc-autocomplete__panel button { display: flex; width: 100%; flex-direction: column; gap: .2rem; border: 0; border-bottom: 1px solid #eeebfa; padding: .75rem .9rem; background: #fff; color: var(--vc-color-text-default, #333b60); cursor: pointer; text-align: left; }
+.vc-autocomplete__panel button:hover, .vc-autocomplete__panel button.active, .vc-autocomplete__panel button:focus-visible { background: #f5f2ff; outline: 0; }
+.vc-autocomplete__panel small { color: var(--vc-color-text-muted, #6f7494); }
+.vc-autocomplete__message { display: block; padding: .8rem .9rem; color: var(--vc-color-text-muted, #6f7494); }
+.vc-autocomplete__message--error, .vc-autocomplete__error { color: var(--vc-color-state-danger-text); }
+.vc-autocomplete__hint, .vc-autocomplete__error { @include mixins.helper-text; }

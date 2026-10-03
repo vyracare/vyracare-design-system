@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import type { VcInputMask, VcInputType } from './model/input.model';
@@ -37,6 +37,8 @@ export class VcInputComponent implements ControlValueAccessor {
   @Input() error = '';
   /** Marks the input as required for users and assistive technology. */
   @Input() required = false;
+  /** Emits the masked value when the native input loses focus. */
+  @Output() blurred = new EventEmitter<string>();
 
   /** Current value synchronized through ControlValueAccessor. */
   value = '';
@@ -82,6 +84,7 @@ export class VcInputComponent implements ControlValueAccessor {
   /** Marks the control as touched. */
   markTouched(): void {
     this.onTouched();
+    this.blurred.emit(this.value);
   }
 
   /** Input mode hint derived from the active mask. */
@@ -90,6 +93,8 @@ export class VcInputComponent implements ControlValueAccessor {
       case 'phone':
         return 'tel';
       case 'date':
+      case 'cpf':
+      case 'postalCode':
         return 'numeric';
       case 'email':
         return 'email';
@@ -137,6 +142,19 @@ export class VcInputComponent implements ControlValueAccessor {
         return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
       }
       return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    }
+
+    if (this.mask === 'cpf') {
+      const digits = raw.replace(/\D/g, '').slice(0, 11);
+      return digits
+        .replace(/^(\d{3})(\d)/, '$1.$2')
+        .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+        .replace(/\.(\d{3})(\d)/, '.$1-$2');
+    }
+
+    if (this.mask === 'postalCode') {
+      const digits = raw.replace(/\D/g, '').slice(0, 8);
+      return digits.replace(/^(\d{5})(\d)/, '$1-$2');
     }
 
     return raw;

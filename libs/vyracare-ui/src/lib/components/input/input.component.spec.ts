@@ -65,6 +65,25 @@ describe('VcInputComponent', () => {
     expect(onChange).toHaveBeenCalledWith('(11) 98765-4321');
   });
 
+  it('applies CPF and postal code masks', () => {
+    component.mask = 'cpf';
+    const cpfInput = { value: '12345678901' } as HTMLInputElement;
+    component.handleInput({ target: cpfInput } as unknown as Event);
+    expect(component.value).toBe('123.456.789-01');
+
+    component.mask = 'postalCode';
+    const postalCodeInput = { value: '01001001' } as HTMLInputElement;
+    component.handleInput({ target: postalCodeInput } as unknown as Event);
+    expect(component.value).toBe('01001-001');
+  });
+
+  it('emits the masked value on blur', () => {
+    const emit = jest.spyOn(component.blurred, 'emit');
+    component.writeValue('value');
+    component.markTouched();
+    expect(emit).toHaveBeenCalledWith('value');
+  });
+
   it('applies phone mask for shorter values', () => {
     component.mask = 'phone';
     fixture.detectChanges();

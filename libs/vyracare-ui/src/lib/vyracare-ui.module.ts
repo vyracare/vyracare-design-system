@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { VcAvatarComponent } from './components/avatar/avatar.component';
+import { VcAutocompleteComponent } from './components/autocomplete/autocomplete.component';
 import { VcButtonComponent } from './components/button/button.component';
+import { VcCheckboxComponent } from './components/checkbox/checkbox.component';
 import { VcCardComponent } from './components/card/card.component';
 import { VcCardButtonComponent } from './components/card-button/card-button.component';
 import { VcDateComponent } from './components/date/date.component';
@@ -20,7 +22,9 @@ import { VcTextComponent } from './components/text/text.component';
 @NgModule({
   imports: [
     VcAvatarComponent,
+    VcAutocompleteComponent,
     VcButtonComponent,
+    VcCheckboxComponent,
     VcCardComponent,
     VcCardButtonComponent,
     VcDateComponent,
@@ -39,7 +43,9 @@ import { VcTextComponent } from './components/text/text.component';
   ],
   exports: [
     VcAvatarComponent,
+    VcAutocompleteComponent,
     VcButtonComponent,
+    VcCheckboxComponent,
     VcCardComponent,
     VcCardButtonComponent,
     VcDateComponent,

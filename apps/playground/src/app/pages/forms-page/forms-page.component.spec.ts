@@ -20,7 +20,7 @@ describe('FormsPageComponent', () => {
   });
 
   it('renders dropdown and search', () => {
-    const select = fixture.nativeElement.querySelector('select');
+    const select = fixture.nativeElement.querySelector('.vc-select__trigger');
     const search = fixture.nativeElement.querySelector('vc-search');
 
     expect(select).toBeTruthy();
