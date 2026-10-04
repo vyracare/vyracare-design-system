@@ -60,6 +60,15 @@
     border-color: var(--vc-color-danger);
     box-shadow: 0 0 0 3px rgba(234, 79, 79, 0.18);
   }
+
+  &:disabled {
+    border-color: var(--vc-color-neutral-300, #d3d5df);
+    background: var(--vc-color-neutral-100, #f1f2f6);
+    color: var(--vc-color-neutral-600, #74788d);
+    cursor: not-allowed;
+    opacity: 1;
+    box-shadow: none;
+  }
 }
 
 @mixin label-base {
