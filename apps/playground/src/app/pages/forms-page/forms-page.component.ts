@@ -5,6 +5,10 @@ import {
   VcSelectComponent,
   VcHeadingComponent,
   VcInputComponent,
+  VcDateTimeInputComponent,
+  VcEmailInputComponent,
+  VcPhoneInputComponent,
+  VcPostalCodeInputComponent,
   VcSearchComponent,
   VcTextComponent
 } from '@vyracare/design-system';
@@ -18,6 +22,10 @@ import {
     VcSelectComponent,
     VcHeadingComponent,
     VcInputComponent,
+    VcDateTimeInputComponent,
+    VcEmailInputComponent,
+    VcPhoneInputComponent,
+    VcPostalCodeInputComponent,
     VcSearchComponent,
     VcTextComponent
   ],

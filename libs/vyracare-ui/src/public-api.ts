@@ -21,6 +21,7 @@ export * from './lib/components/icon-button/icon-button.component';
 export * from './lib/components/icon-button/model/icon-button.model';
 export * from './lib/components/input/input.component';
 export * from './lib/components/input/model/input.model';
+export * from './lib/components/specialized-inputs/specialized-inputs.component';
 export * from './lib/components/label/label.component';
 export * from './lib/components/list/list.component';
 export * from './lib/components/list/model/list.model';

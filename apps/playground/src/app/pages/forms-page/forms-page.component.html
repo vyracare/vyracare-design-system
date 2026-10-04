@@ -6,19 +6,8 @@
 
   <div class="page__grid">
     <vc-input label="Nome completo" placeholder="Digite o nome"></vc-input>
-    <vc-input
-      label="E-mail"
-      type="email"
-      placeholder="email@vyracare.com"
-      mask="email"
-    ></vc-input>
-    <vc-input
-      label="Telefone"
-      type="tel"
-      placeholder="(11) 99999-0000"
-      hint="Opcional"
-      mask="phone"
-    ></vc-input>
+    <vc-email-input label="E-mail"></vc-email-input>
+    <vc-phone-input label="Telefone" hint="Opcional"></vc-phone-input>
     <vc-input
       label="Senha"
       type="password"
@@ -31,6 +20,8 @@
       mask="date"
     ></vc-input>
     <vc-date label="Data de nascimento" hint="Formato dd/mm/aaaa"></vc-date>
+    <vc-date-time-input label="Data e hora do atendimento"></vc-date-time-input>
+    <vc-postal-code-input label="CEP"></vc-postal-code-input>
     <div class="page__span">
       <vc-select
         label="Especialidade"

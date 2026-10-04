@@ -11,6 +11,12 @@ import { VcHeadingComponent } from './components/heading/heading.component';
 import { VcIconComponent } from './components/icon/icon.component';
 import { VcIconButtonComponent } from './components/icon-button/icon-button.component';
 import { VcInputComponent } from './components/input/input.component';
+import {
+  VcDateTimeInputComponent,
+  VcEmailInputComponent,
+  VcPhoneInputComponent,
+  VcPostalCodeInputComponent
+} from './components/specialized-inputs/specialized-inputs.component';
 import { VcLabelComponent } from './components/label/label.component';
 import { VcListComponent } from './components/list/list.component';
 import { VcNavbarComponent } from './components/navbar/navbar.component';
@@ -33,6 +39,10 @@ import { VcTextComponent } from './components/text/text.component';
     VcIconComponent,
     VcIconButtonComponent,
     VcInputComponent,
+    VcPhoneInputComponent,
+    VcEmailInputComponent,
+    VcDateTimeInputComponent,
+    VcPostalCodeInputComponent,
     VcLabelComponent,
     VcListComponent,
     VcNavbarComponent,
@@ -54,6 +64,10 @@ import { VcTextComponent } from './components/text/text.component';
     VcIconComponent,
     VcIconButtonComponent,
     VcInputComponent,
+    VcPhoneInputComponent,
+    VcEmailInputComponent,
+    VcDateTimeInputComponent,
+    VcPostalCodeInputComponent,
     VcLabelComponent,
     VcListComponent,
     VcNavbarComponent,
