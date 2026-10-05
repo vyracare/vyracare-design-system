@@ -1,0 +1,17 @@
+<span
+  class="vc-tooltip-trigger"
+  (mouseenter)="show()"
+  (mouseleave)="hide()"
+  (focusin)="show()"
+  (focusout)="hide()"
+>
+  <ng-content></ng-content>
+  @if (visible()) {
+    <span
+      class="vc-tooltip"
+      [class]="'vc-tooltip vc-tooltip--' + position"
+      [id]="tooltipId"
+      role="tooltip"
+    >{{ text }}</span>
+  }
+</span>

@@ -37,3 +37,5 @@ export * from './lib/components/text/model/text.model';
 export * from './lib/components/toast/toast-container.component';
 export * from './lib/components/toast/toast.service';
 export * from './lib/components/toast/model/toast.model';
+export * from './lib/components/tooltip/tooltip.component';
+export * from './lib/components/tooltip/model/tooltip.model';
