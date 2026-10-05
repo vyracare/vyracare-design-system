@@ -24,6 +24,7 @@ import { VcNotificationsComponent } from './components/notifications/notificatio
 import { VcSearchComponent } from './components/search/search.component';
 import { VcSidebarComponent } from './components/sidebar/sidebar.component';
 import { VcTextComponent } from './components/text/text.component';
+import { VcToastContainerComponent } from './components/toast/toast-container.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { VcTextComponent } from './components/text/text.component';
     VcNotificationsComponent,
     VcSearchComponent,
     VcSidebarComponent,
-    VcTextComponent
+    VcTextComponent,
+    VcToastContainerComponent
   ],
   exports: [
     VcAvatarComponent,
@@ -74,7 +76,8 @@ import { VcTextComponent } from './components/text/text.component';
     VcNotificationsComponent,
     VcSearchComponent,
     VcSidebarComponent,
-    VcTextComponent
+    VcTextComponent,
+    VcToastContainerComponent
   ]
 })
 export class VyracareUiModule {}

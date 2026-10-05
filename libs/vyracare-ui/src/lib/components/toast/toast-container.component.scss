@@ -1,0 +1,99 @@
+:host {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.vc-toast-viewport {
+  width: min(24rem, calc(100vw - 2rem));
+  display: grid;
+  gap: 0.75rem;
+}
+
+.vc-toast {
+  --vc-toast-color: var(--vc-color-primary, #5a3be7);
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.3rem 1fr auto;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--vc-toast-color) 24%, transparent);
+  border-radius: 1rem;
+  background: var(--vc-color-surface, #fff);
+  color: var(--vc-color-text-strong, #22263a);
+  box-shadow: 0 18px 48px rgba(27, 32, 72, 0.22);
+  pointer-events: auto;
+  animation: vc-toast-enter 180ms ease-out;
+}
+
+.vc-toast--success { --vc-toast-color: #16835f; }
+.vc-toast--error { --vc-toast-color: #c8374d; }
+.vc-toast--warning { --vc-toast-color: #b56a00; }
+.vc-toast--info { --vc-toast-color: #4263d8; }
+
+.vc-toast__indicator {
+  width: 0.3rem;
+  height: 100%;
+  min-height: 2.5rem;
+  border-radius: 999px;
+  background: var(--vc-toast-color);
+}
+
+.vc-toast__content {
+  min-width: 0;
+
+  strong {
+    display: block;
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    color: var(--vc-color-text-muted, #68708f);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+}
+
+.vc-toast__close {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--vc-color-text-muted, #68708f);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, var(--vc-toast-color) 10%, transparent);
+    color: var(--vc-toast-color);
+    outline: none;
+  }
+}
+
+@keyframes vc-toast-enter {
+  from { opacity: 0; transform: translateX(1rem); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 640px) {
+  :host {
+    top: 0.75rem;
+    right: 0.75rem;
+    left: 0.75rem;
+  }
+
+  .vc-toast-viewport { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vc-toast { animation: none; }
+}

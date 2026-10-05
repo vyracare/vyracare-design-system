@@ -1,0 +1,21 @@
+<section class="vc-toast-viewport" aria-label="Mensagens do sistema">
+  @for (toast of toasts(); track toast.id) {
+    <article
+      class="vc-toast"
+      [class]="'vc-toast vc-toast--' + toast.variant"
+      [attr.role]="toast.variant === 'error' ? 'alert' : 'status'"
+      [attr.aria-live]="ariaLive(toast.variant)"
+    >
+      <span class="vc-toast__indicator" aria-hidden="true"></span>
+      <div class="vc-toast__content">
+        <strong>{{ toast.title }}</strong>
+        @if (toast.message) {
+          <p>{{ toast.message }}</p>
+        }
+      </div>
+      <button type="button" class="vc-toast__close" aria-label="Fechar mensagem" (click)="toastService.dismiss(toast.id)">
+        &times;
+      </button>
+    </article>
+  }
+</section>

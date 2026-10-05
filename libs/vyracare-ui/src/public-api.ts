@@ -34,3 +34,6 @@ export * from './lib/components/sidebar/sidebar.component';
 export * from './lib/components/sidebar/model/sidebar.model';
 export * from './lib/components/text/text.component';
 export * from './lib/components/text/model/text.model';
+export * from './lib/components/toast/toast-container.component';
+export * from './lib/components/toast/toast.service';
+export * from './lib/components/toast/model/toast.model';
