@@ -1,5 +1,8 @@
 :host {
   display: block;
+  position: sticky;
+  top: 0;
+  z-index: 900;
 }
 
 .vc-navbar {
@@ -12,10 +15,6 @@
   border-bottom: 1px solid rgba(90, 59, 231, 0.1);
   box-shadow: 0 8px 30px rgba(44, 56, 120, 0.06);
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    align-items: stretch;
-  }
 }
 
 .vc-navbar__logo-area {
@@ -136,5 +135,55 @@
       background: var(--vc-color-highlight);
       color: var(--vc-color-primary);
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .vc-navbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.75rem 1rem;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .vc-navbar__search-field {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .vc-navbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.65rem;
+    padding: 0.65rem max(0.75rem, env(safe-area-inset-right)) 0.75rem max(0.75rem, env(safe-area-inset-left));
+  }
+
+  .vc-navbar__logo-area {
+    min-width: 0;
+
+    p { display: none; }
+  }
+
+  .vc-navbar__logo-mark { font-size: 1.15rem; }
+
+  .vc-navbar__search-field {
+    min-height: 2.75rem;
+    padding: 0.55rem 0.8rem;
+
+    input {
+      min-width: 0;
+      font-size: 0.9rem;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .vc-navbar__profile { gap: 0.3rem; }
+  .vc-navbar__profile-text { display: none; }
+
+  .vc-navbar__profile-dropdown {
+    position: fixed;
+    top: 7.2rem;
+    right: 0.75rem;
+    width: min(15rem, calc(100vw - 1.5rem));
   }
 }

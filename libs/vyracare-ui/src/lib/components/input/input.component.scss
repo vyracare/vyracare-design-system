@@ -25,3 +25,10 @@
     @include mixins.helper-text(var(--vc-color-state-danger-text));
   }
 }
+
+@media (max-width: 720px) {
+  .vc-input__field {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+}

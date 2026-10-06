@@ -129,3 +129,15 @@
     background: var(--vc-color-highlight-strong);
   }
 }
+
+@media (max-width: 720px) {
+  .vc-notifications__panel {
+    position: fixed;
+    top: 7.2rem;
+    right: 0.75rem;
+    width: min(20rem, calc(100vw - 1.5rem));
+    box-sizing: border-box;
+    max-height: calc(100dvh - 8rem);
+    overflow-y: auto;
+  }
+}
