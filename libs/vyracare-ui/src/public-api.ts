@@ -25,6 +25,8 @@ export * from './lib/components/specialized-inputs/specialized-inputs.component'
 export * from './lib/components/label/label.component';
 export * from './lib/components/list/list.component';
 export * from './lib/components/list/model/list.model';
+export * from './lib/components/modal/modal.component';
+export * from './lib/components/modal/model/modal.model';
 export * from './lib/components/navbar/navbar.component';
 export * from './lib/components/navbar/model/navbar.model';
 export * from './lib/components/notifications/notifications.component';

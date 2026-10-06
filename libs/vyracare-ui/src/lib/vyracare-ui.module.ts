@@ -19,6 +19,7 @@ import {
 } from './components/specialized-inputs/specialized-inputs.component';
 import { VcLabelComponent } from './components/label/label.component';
 import { VcListComponent } from './components/list/list.component';
+import { VcModalComponent } from './components/modal/modal.component';
 import { VcNavbarComponent } from './components/navbar/navbar.component';
 import { VcNotificationsComponent } from './components/notifications/notifications.component';
 import { VcSearchComponent } from './components/search/search.component';
@@ -47,6 +48,7 @@ import { VcTooltipComponent } from './components/tooltip/tooltip.component';
     VcPostalCodeInputComponent,
     VcLabelComponent,
     VcListComponent,
+    VcModalComponent,
     VcNavbarComponent,
     VcNotificationsComponent,
     VcSearchComponent,
@@ -74,6 +76,7 @@ import { VcTooltipComponent } from './components/tooltip/tooltip.component';
     VcPostalCodeInputComponent,
     VcLabelComponent,
     VcListComponent,
+    VcModalComponent,
     VcNavbarComponent,
     VcNotificationsComponent,
     VcSearchComponent,

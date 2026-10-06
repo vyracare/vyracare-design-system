@@ -1,0 +1,23 @@
+<div class="vc-modal__backdrop" (click)="requestBackdropClose($event)">
+  <section
+    #surface
+    class="vc-modal"
+    tabindex="-1"
+    aria-modal="true"
+    [attr.role]="role"
+    [attr.aria-labelledby]="labelledBy || null"
+    [attr.aria-describedby]="describedBy || null"
+  >
+    <header class="vc-modal__header">
+      <ng-content select="[vcModalHeader]"></ng-content>
+    </header>
+
+    <div class="vc-modal__body">
+      <ng-content select="[vcModalBody]"></ng-content>
+    </div>
+
+    <footer class="vc-modal__footer">
+      <ng-content select="[vcModalFooter]"></ng-content>
+    </footer>
+  </section>
+</div>
