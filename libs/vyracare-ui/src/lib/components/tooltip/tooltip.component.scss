@@ -10,7 +10,7 @@
 }
 
 .vc-tooltip {
-  position: absolute;
+  position: fixed;
   z-index: 1300;
   width: max-content;
   max-width: min(15rem, 75vw);
@@ -36,9 +36,7 @@
   }
 
   &--top {
-    bottom: calc(100% + 0.65rem);
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -100%);
 
     &::after {
       top: 100%;
@@ -49,8 +47,6 @@
   }
 
   &--bottom {
-    top: calc(100% + 0.65rem);
-    left: 50%;
     transform: translateX(-50%);
 
     &::after {
@@ -62,9 +58,7 @@
   }
 
   &--left {
-    top: 50%;
-    right: calc(100% + 0.65rem);
-    transform: translateY(-50%);
+    transform: translate(-100%, -50%);
 
     &::after {
       top: 50%;
@@ -75,8 +69,6 @@
   }
 
   &--right {
-    top: 50%;
-    left: calc(100% + 0.65rem);
     transform: translateY(-50%);
 
     &::after {
