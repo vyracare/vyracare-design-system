@@ -16,16 +16,51 @@
     </div>
   }
 
-  <label class="vc-navbar__search-field">
-    <vc-icon name="search" size="md" [decorative]="true"></vc-icon>
-    <input
-      type="search"
-      [value]="searchValue"
-      [placeholder]="searchPlaceholder"
-      (input)="handleSearch($event)"
-      (keydown.enter)="submitSearch($event)"
-    />
-  </label>
+  <div class="vc-navbar__search" (click)="$event.stopPropagation()">
+    <label class="vc-navbar__search-field">
+      <vc-icon name="search" size="md" [decorative]="true"></vc-icon>
+      <input
+        type="search"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-controls="vc-navbar-search-suggestions"
+        [attr.aria-expanded]="searchSuggestionsOpen"
+        [attr.aria-activedescendant]="activeSuggestionIndex() >= 0 ? 'vc-navbar-search-suggestion-' + activeSuggestionIndex() : null"
+        [value]="searchValue"
+        [placeholder]="searchPlaceholder"
+        (focus)="openSearchSuggestions()"
+        (input)="handleSearch($event)"
+        (keydown)="handleSearchKeydown($event)"
+      />
+    </label>
+
+    @if (searchSuggestionsOpen) {
+      <div id="vc-navbar-search-suggestions" class="vc-navbar__search-suggestions" role="listbox">
+        @for (suggestion of searchSuggestions; track suggestion.id; let index = $index) {
+          <button
+            type="button"
+            role="option"
+            class="vc-navbar__search-suggestion"
+            [class.is-active]="activeSuggestionIndex() === index"
+            [attr.id]="'vc-navbar-search-suggestion-' + index"
+            [attr.aria-selected]="activeSuggestionIndex() === index"
+            (click)="selectSearchSuggestion(suggestion)"
+          >
+            @if (suggestion.icon) {
+              <vc-icon [name]="suggestion.icon" size="md" [decorative]="true"></vc-icon>
+            }
+            <span>
+              <strong>{{ suggestion.label }}</strong>
+              @if (suggestion.description) {
+                <small>{{ suggestion.description }}</small>
+              }
+            </span>
+            <vc-icon name="arrow-right" size="sm" [decorative]="true"></vc-icon>
+          </button>
+        }
+      </div>
+    }
+  </div>
 
   <vc-notifications
     [items]="notifications"

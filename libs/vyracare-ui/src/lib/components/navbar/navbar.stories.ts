@@ -27,7 +27,11 @@ const meta: Meta<VcNavbarComponent> = {
     ],
     profileName: 'Lenin Silva',
     profileRole: 'Administrador',
-    profileInitials: 'LS'
+    profileInitials: 'LS',
+    searchSuggestions: [
+      { id: 'agenda', label: 'Agenda', description: 'Consultar atendimentos', icon: 'calendar-event' },
+      { id: 'patients', label: 'Pacientes', description: 'Abrir cadastro de pacientes', icon: 'people' }
+    ]
   }
 };
 
