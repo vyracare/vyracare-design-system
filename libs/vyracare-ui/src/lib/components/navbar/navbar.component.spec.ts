@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
+import { VcIconButtonComponent } from '../icon-button/icon-button.component';
 import { VcNavbarComponent } from './navbar.component';
 
 describe('VcNavbarComponent', () => {
@@ -63,6 +65,17 @@ describe('VcNavbarComponent', () => {
 
     component.closeMenus();
     expect(component.profileMenuOpen()).toBe(false);
+  });
+
+  it('keeps notification and profile actions visually balanced', () => {
+    fixture.detectChanges();
+    const actions = fixture.debugElement
+      .queryAll(By.directive(VcIconButtonComponent))
+      .map((element) => element.componentInstance as VcIconButtonComponent);
+
+    expect(actions).toHaveLength(2);
+    expect(actions.every((action) => action.size === 'md')).toBe(true);
+    expect(actions.every((action) => action.variant === 'soft')).toBe(true);
   });
 
   it('emits profile actions and closes the menu', () => {
