@@ -59,7 +59,8 @@ function resolveCommitMessage() {
 
 const rootPackage = readJson(rootPackagePath);
 const commitMessage = resolveCommitMessage();
-const nextVersion = bumpVersion(rootPackage.version, commitMessage);
+const baseVersion = process.env.BASE_VERSION?.trim() || rootPackage.version;
+const nextVersion = bumpVersion(baseVersion, commitMessage);
 
 rootPackage.version = nextVersion;
 writeJson(rootPackagePath, rootPackage);

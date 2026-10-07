@@ -310,12 +310,37 @@ jobs:
           NPM_CONFIG_OMIT: ''
         run: npm ci --legacy-peer-deps --include=dev --omit=optional --omit=peer
 
+      - name: Resolve latest published version
+        id: published_version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(aws codeartifact list-package-versions \
+            --domain "$CODEARTIFACT_DOMAIN" \
+            --domain-owner "$AWS_ACCOUNT_ID" \
+            --repository "$CODEARTIFACT_REPO" \
+            --format npm \
+            --namespace vyracare \
+            --package design-system \
+            --status Published \
+            --sort-by PUBLISHED_TIME \
+            --max-results 1 \
+            --query 'versions[0].version' \
+            --output text)
+
+          if [ -z "$version" ] || [ "$version" = "None" ]; then
+            version=$(node -p "require('./package.json').version")
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
       - name: Bump package version
         id: bump_version
         working-directory: ${{ steps.resolve.outputs.workdir }}
         shell: bash
         env:
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          BASE_VERSION: ${{ steps.published_version.outputs.version }}
         run: |
           set -euo pipefail
           npm run version:ci
