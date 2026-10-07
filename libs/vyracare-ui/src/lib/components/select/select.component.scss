@@ -77,3 +77,14 @@
     @include mixins.helper-text(var(--vc-color-state-danger-text));
   }
 }
+
+@media (max-width: 720px) {
+  .vc-select__trigger {
+    min-height: 3.5rem;
+  }
+
+  .vc-select__options button {
+    min-height: 3.25rem;
+    padding-block: 0.875rem;
+  }
+}
