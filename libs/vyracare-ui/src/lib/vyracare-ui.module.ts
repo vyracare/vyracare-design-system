@@ -25,6 +25,7 @@ import { VcNotificationsComponent } from './components/notifications/notificatio
 import { VcSearchComponent } from './components/search/search.component';
 import { VcSidebarComponent } from './components/sidebar/sidebar.component';
 import { VcTextComponent } from './components/text/text.component';
+import { VcTextareaComponent } from './components/textarea/textarea.component';
 import { VcToastContainerComponent } from './components/toast/toast-container.component';
 import { VcTooltipComponent } from './components/tooltip/tooltip.component';
 
@@ -54,6 +55,7 @@ import { VcTooltipComponent } from './components/tooltip/tooltip.component';
     VcSearchComponent,
     VcSidebarComponent,
     VcTextComponent,
+    VcTextareaComponent,
     VcToastContainerComponent,
     VcTooltipComponent
   ],
@@ -82,6 +84,7 @@ import { VcTooltipComponent } from './components/tooltip/tooltip.component';
     VcSearchComponent,
     VcSidebarComponent,
     VcTextComponent,
+    VcTextareaComponent,
     VcToastContainerComponent,
     VcTooltipComponent
   ]

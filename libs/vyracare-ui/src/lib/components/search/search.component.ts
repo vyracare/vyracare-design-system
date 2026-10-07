@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { VcIconComponent } from '../icon/icon.component';
@@ -30,6 +30,12 @@ export class VcSearchComponent implements ControlValueAccessor {
   @Input() hint = '';
   /** Error text rendered below the control and used for invalid state. */
   @Input() error = '';
+  /** Displays a dedicated icon button beside the field. */
+  @Input() action = false;
+  /** Accessible name announced for the optional action button. */
+  @Input() actionLabel = 'Buscar';
+  /** Emits the current value when the action is requested. */
+  @Output() search = new EventEmitter<string>();
 
   /** Current value synchronized through ControlValueAccessor. */
   value = '';
@@ -73,5 +79,12 @@ export class VcSearchComponent implements ControlValueAccessor {
   /** Marks the control as touched. */
   markTouched(): void {
     this.onTouched();
+  }
+
+  /** Emits a normalized search term from the button or Enter key. */
+  submit(): void {
+    if (!this.disabled) {
+      this.search.emit(this.value.trim());
+    }
   }
 }

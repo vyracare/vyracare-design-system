@@ -76,4 +76,15 @@ describe('VcSearchComponent', () => {
     component.markTouched();
     expect(onTouched).toHaveBeenCalled();
   });
+
+  it('emits the normalized value from the optional action', () => {
+    component.action = true;
+    component.writeValue('  paciente  ');
+    const emitSpy = jest.spyOn(component.search, 'emit');
+    fixture.detectChanges();
+
+    (fixture.nativeElement.querySelector('.vc-search__action') as HTMLButtonElement).click();
+
+    expect(emitSpy).toHaveBeenCalledWith('paciente');
+  });
 });

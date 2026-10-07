@@ -1,0 +1,31 @@
+<div class="vc-textarea">
+  @if (label) {
+    <label class="vc-label" [attr.for]="id">
+      <span>{{ label }}</span>
+      @if (required) {
+        <span class="vc-label__required">*</span>
+      }
+    </label>
+  }
+  <textarea
+    class="vc-textarea__field"
+    [id]="id"
+    [rows]="rows"
+    [attr.placeholder]="placeholder"
+    [attr.maxlength]="maxLength"
+    [attr.required]="required || null"
+    [attr.aria-invalid]="!!error"
+    [attr.aria-describedby]="error ? id + '-error' : hint ? id + '-hint' : null"
+    [disabled]="disabled"
+    [value]="value"
+    [class.invalid]="!!error"
+    (input)="handleInput($event)"
+    (blur)="markTouched()"
+  ></textarea>
+  @if (hint && !error) {
+    <small class="vc-textarea__hint" [id]="id + '-hint'">{{ hint }}</small>
+  }
+  @if (error) {
+    <small class="vc-textarea__error" [id]="id + '-error'">{{ error }}</small>
+  }
+</div>

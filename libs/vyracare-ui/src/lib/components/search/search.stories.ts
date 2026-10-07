@@ -26,3 +26,11 @@ export default meta;
 type Story = StoryObj<VcSearchComponent>;
 
 export const Default: Story = {};
+
+export const WithAction: Story = {
+  args: {
+    label: 'Buscar paciente',
+    action: true,
+    actionLabel: 'Buscar paciente'
+  }
+};
