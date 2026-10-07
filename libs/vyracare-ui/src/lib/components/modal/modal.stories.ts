@@ -24,10 +24,8 @@ export const Confirmation: Story = {
           <vc-text id="example-description">Deseja realmente salvar as alterações?</vc-text>
           <vc-text [muted]="true">Os dados atuais serão preservados até a confirmação.</vc-text>
         </div>
-        <div vcModalFooter>
-          <vc-button variant="secondary">Cancelar</vc-button>
-          <vc-button>Confirmar e salvar</vc-button>
-        </div>
+        <vc-button vcModalFooter variant="secondary">Cancelar</vc-button>
+        <vc-button vcModalFooter>Confirmar e salvar</vc-button>
       </vc-modal>
     `
   })

@@ -66,6 +66,20 @@
     min-width: 0;
   }
 
+  :host ::ng-deep .vc-modal__footer > :only-child {
+    margin-left: auto;
+  }
+
+  :host ::ng-deep .vc-modal__footer:has(> :nth-child(3)) {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  :host ::ng-deep .vc-modal__footer:has(> :nth-child(3)) > *,
+  :host ::ng-deep .vc-modal__footer:has(> :nth-child(3)) vc-button .vc-button__inner {
+    width: 100%;
+  }
+
   :host ::ng-deep .vc-modal__footer vc-button .vc-button__inner {
     max-width: 100%;
     min-height: 2.75rem;
