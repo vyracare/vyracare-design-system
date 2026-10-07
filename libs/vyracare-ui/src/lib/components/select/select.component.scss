@@ -80,7 +80,9 @@
 
 @media (max-width: 720px) {
   .vc-select__trigger {
+    box-sizing: border-box;
     min-height: 3.5rem;
+    font-size: 1rem;
   }
 
   .vc-select__options button {

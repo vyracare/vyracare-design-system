@@ -28,7 +28,8 @@
 
 @media (max-width: 720px) {
   .vc-input__field {
-    min-height: 44px;
+    box-sizing: border-box;
+    min-height: 3.5rem;
     font-size: 1rem;
   }
 }
