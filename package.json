@@ -1,6 +1,6 @@
 {
   "name": "@vyracare/design-system",
-  "version": "0.10.3",
+  "version": "0.11.0",
   "private": false,
   "description": "Vyracare Design System (Angular) - tokens + componentes + storybook.",
   "scripts": {
