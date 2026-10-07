@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
+import { VcIconButtonComponent } from '../icon-button/icon-button.component';
 import { VcNotificationsComponent } from './notifications.component';
 
 describe('VcNotificationsComponent', () => {
@@ -24,6 +26,16 @@ describe('VcNotificationsComponent', () => {
 
     const badge: HTMLElement | null = fixture.nativeElement.querySelector('.vc-notifications__badge');
     expect(badge?.textContent?.trim()).toBe('2');
+  });
+
+  it('renders a proportionally sized notification icon', () => {
+    fixture.detectChanges();
+
+    const trigger = fixture.debugElement.query(By.directive(VcIconButtonComponent))
+      .componentInstance as VcIconButtonComponent;
+
+    expect(trigger.size).toBe('md');
+    expect(trigger.iconSize).toBe('lg');
   });
 
   it('toggles the panel when the trigger is used', () => {

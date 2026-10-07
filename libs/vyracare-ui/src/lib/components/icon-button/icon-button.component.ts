@@ -1,6 +1,7 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { VcIconComponent } from '../icon/icon.component';
+import type { VcIconSize } from '../icon/model/icon.model';
 import type { VcButtonType } from '../button/model/button.model';
 import type { VcIconButtonSize, VcIconButtonVariant } from './model/icon-button.model';
 
@@ -26,6 +27,8 @@ export class VcIconButtonComponent {
   @Input() type: VcButtonType = 'button';
   /** Visual size token. */
   @Input() size: VcIconButtonSize = 'md';
+  /** Size of the icon rendered inside the button. */
+  @Input() iconSize: VcIconSize = 'md';
   /** Visual variant token. */
   @Input() variant: VcIconButtonVariant = 'soft';
   /** Disables the button interaction. */
