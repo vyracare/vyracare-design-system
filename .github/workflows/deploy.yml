@@ -379,7 +379,7 @@ jobs:
         run: |
           set -euo pipefail
           test -f package.json
-          test -f index.d.ts
+          test -f types/vyracare-design-system.d.ts
           test -f fesm2022/vyracare-design-system.mjs
           test -f styles/_index.scss
 
