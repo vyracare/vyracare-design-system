@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 env:
-  NODE_VERSION: '20.x'
+  NODE_VERSION: '24.15.0'
   AWS_REGION: us-east-1
   AWS_ACCOUNT_ID: '510253726006'
   CODEARTIFACT_DOMAIN: vyracare-design-system
