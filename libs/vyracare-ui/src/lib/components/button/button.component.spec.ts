@@ -1,49 +1,54 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 
-import { VcButtonComponent } from './button.component';
+import { VcButtonComponent } from "./button.component";
 
 @Component({
   standalone: true,
   imports: [VcButtonComponent],
-  template: '<vc-button [loading]="loading">Salvar</vc-button>'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  template: '<vc-button [loading]="loading" [full]="full">Salvar</vc-button>',
 })
 class ButtonHostComponent {
   loading = false;
+  full = false;
 }
 
-describe('VcButtonComponent', () => {
+describe("VcButtonComponent", () => {
   let fixture: ComponentFixture<ButtonHostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonHostComponent]
+      imports: [ButtonHostComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonHostComponent);
     fixture.detectChanges();
   });
 
-  it('renders content', () => {
-    const button = fixture.nativeElement.querySelector('button');
-    expect(button.textContent).toContain('Salvar');
+  it("renders content", () => {
+    const button = fixture.nativeElement.querySelector("button");
+    expect(button.textContent).toContain("Salvar");
   });
 
-  it('disables when loading', async () => {
+  it("disables when loading", async () => {
     const host = fixture.componentInstance;
     host.loading = true;
-    fixture.detectChanges();
+    fixture.changeDetectorRef.markForCheck();
     await fixture.whenStable();
-    const button = fixture.nativeElement.querySelector('button');
+    const button = fixture.nativeElement.querySelector("button");
     expect(button.disabled).toBe(true);
   });
 
-  it('applies full width class when full is true', () => {
-    const debugElement = fixture.debugElement.query(By.directive(VcButtonComponent));
-    debugElement.componentInstance.full = true;
-    fixture.detectChanges();
+  it("applies full width class when full is true", async () => {
+    const debugElement = fixture.debugElement.query(
+      By.directive(VcButtonComponent)
+    );
+    fixture.componentInstance.full = true;
+    fixture.changeDetectorRef.markForCheck();
+    await fixture.whenStable();
 
-    expect(debugElement.nativeElement.classList).toContain('vc-button--full');
+    expect(debugElement.nativeElement.classList).toContain("vc-button--full");
   });
 });

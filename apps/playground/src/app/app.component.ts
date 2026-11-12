@@ -1,44 +1,54 @@
-import { Component, computed, effect, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { VcIconComponent } from '@vyracare/design-system';
+import {
+  Component,
+  computed,
+  effect,
+  signal,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
+import { VcIconComponent } from "@vyracare/design-system";
 
-import type { PlaygroundLink, PlaygroundTheme } from './model/playground-link.model';
+import type {
+  PlaygroundLink,
+  PlaygroundTheme,
+} from "./model/playground-link.model";
 
 @Component({
-  selector: 'playground-root',
+  selector: "playground-root",
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive, VcIconComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: "./app.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
   /** Active visual theme for the playground shell. */
-  theme = signal<PlaygroundTheme>('light');
+  theme = signal<PlaygroundTheme>("light");
 
   /** Icon name that reflects the action available for the current theme. */
-  themeIcon = computed(() => (this.theme() === 'dark' ? 'sun' : 'moon'));
+  themeIcon = computed(() => (this.theme() === "dark" ? "sun" : "moon"));
 
   /** Top-level links rendered in the lateral menu. */
   links: PlaygroundLink[] = [
-    { path: 'formularios', label: 'Formularios' },
-    { path: 'grid', label: 'Grid' },
-    { path: 'tokens', label: 'Tokens' },
-    { path: 'tipografia', label: 'Tipografia' },
-    { path: 'espacamento', label: 'Espacamento' }
+    { path: "formularios", label: "Formularios" },
+    { path: "grid", label: "Grid" },
+    { path: "tokens", label: "Tokens" },
+    { path: "tipografia", label: "Tipografia" },
+    { path: "espacamento", label: "Espacamento" },
   ];
 
   /** Links nested under the Components dropdown in the lateral menu. */
   componentLinks: PlaygroundLink[] = [
-    { path: 'componentes', label: 'Todos' },
-    { path: 'componentes/avatar', label: 'Avatar' },
-    { path: 'componentes/button', label: 'Button' },
-    { path: 'componentes/card-button', label: 'Card Button' },
-    { path: 'componentes/card', label: 'Card' },
-    { path: 'componentes/icon-button', label: 'Icon Button' },
-    { path: 'componentes/list', label: 'List' },
-    { path: 'componentes/navbar', label: 'Navbar' },
-    { path: 'componentes/notifications', label: 'Notifications' },
-    { path: 'componentes/sidebar', label: 'Sidebar' }
+    { path: "componentes", label: "Todos" },
+    { path: "componentes/avatar", label: "Avatar" },
+    { path: "componentes/button", label: "Button" },
+    { path: "componentes/card-button", label: "Card Button" },
+    { path: "componentes/card", label: "Card" },
+    { path: "componentes/icon-button", label: "Icon Button" },
+    { path: "componentes/list", label: "List" },
+    { path: "componentes/navbar", label: "Navbar" },
+    { path: "componentes/notifications", label: "Notifications" },
+    { path: "componentes/sidebar", label: "Sidebar" },
   ];
 
   /** Controls the open state of the Components dropdown. */
@@ -46,19 +56,19 @@ export class AppComponent {
 
   constructor() {
     effect(() => {
-      if (typeof document === 'undefined') {
+      if (typeof document === "undefined") {
         return () => undefined;
       }
       const root = document.documentElement;
-      root.classList.add('theme-transition');
+      root.classList.add("theme-transition");
       const timeout = window.setTimeout(() => {
-        root.classList.remove('theme-transition');
+        root.classList.remove("theme-transition");
       }, 260);
 
-      if (this.theme() === 'dark') {
-        root.setAttribute('data-theme', 'dark');
+      if (this.theme() === "dark") {
+        root.setAttribute("data-theme", "dark");
       } else {
-        root.removeAttribute('data-theme');
+        root.removeAttribute("data-theme");
       }
 
       return () => {
@@ -69,7 +79,7 @@ export class AppComponent {
 
   /** Toggles between light and dark themes in the playground shell. */
   toggleTheme(): void {
-    this.theme.update((current) => (current === 'dark' ? 'light' : 'dark'));
+    this.theme.update((current) => (current === "dark" ? "light" : "dark"));
   }
 
   /** Opens or closes the Components dropdown in the lateral menu. */

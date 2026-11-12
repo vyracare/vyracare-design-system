@@ -1,46 +1,51 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  Input,
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
-import { VcIconComponent } from '../icon/icon.component';
-import type { VcSelectOption } from './model/select.model';
+import { VcIconComponent } from "../icon/icon.component";
+import type { VcSelectOption } from "./model/select.model";
 
-export type { VcSelectOption } from './model/select.model';
+export type { VcSelectOption } from "./model/select.model";
 
 /** Select control integrated with Angular Forms. */
 @Component({
-  selector: 'vc-select',
+  selector: "vc-select",
   standalone: true,
-  imports: [CommonModule, VcIconComponent],
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  imports: [VcIconComponent],
+  templateUrl: "./select.component.html",
+  styleUrls: ["./select.component.scss"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => VcSelectComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VcSelectComponent implements ControlValueAccessor {
   /** Id forwarded to the internal select and label relationship. */
-  @Input() id = '';
+  @Input() id = "";
   /** Label rendered above the select. */
-  @Input() label = '';
+  @Input() label = "";
   /** Placeholder option shown before selection. */
-  @Input() placeholder = 'Selecione';
+  @Input() placeholder = "Selecione";
   /** Supporting text rendered below the control. */
-  @Input() hint = '';
+  @Input() hint = "";
   /** Error text rendered below the control and used for invalid state. */
-  @Input() error = '';
+  @Input() error = "";
   /** Marks the select as required for users and assistive technology. */
   @Input() required = false;
   /** Options rendered inside the select. */
   @Input() options: VcSelectOption[] = [];
 
   /** Current value synchronized through ControlValueAccessor. */
-  value = '';
+  value = "";
   /** Disabled state synchronized through ControlValueAccessor. */
   disabled = false;
   open = false;
@@ -52,7 +57,7 @@ export class VcSelectComponent implements ControlValueAccessor {
 
   /** Writes external form values into the component. */
   writeValue(value: string | null): void {
-    this.value = value ?? '';
+    this.value = value ?? "";
     this.cdr.markForCheck();
   }
 
@@ -96,6 +101,9 @@ export class VcSelectComponent implements ControlValueAccessor {
   }
 
   get selectedLabel(): string {
-    return this.options.find(option => option.value === this.value)?.label ?? this.placeholder;
+    return (
+      this.options.find((option) => option.value === this.value)?.label ??
+      this.placeholder
+    );
   }
 }

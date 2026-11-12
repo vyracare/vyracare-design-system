@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
-import { VcHeadingComponent, VcTextComponent } from '@vyracare/design-system';
+import { VcHeadingComponent, VcTextComponent } from "@vyracare/design-system";
 
 /** Playground page that demonstrates the Vyracare responsive grid system. */
 @Component({
-  selector: 'playground-grid-page',
+  selector: "playground-grid-page",
   standalone: true,
   imports: [VcHeadingComponent, VcTextComponent],
-  templateUrl: './grid-page.component.html',
-  styleUrls: ['./grid-page.component.scss']
+  templateUrl: "./grid-page.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrls: ["./grid-page.component.scss"],
 })
 export class GridPageComponent {}

@@ -1,18 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 
-import type { VcHeadingLevel } from './model/heading.model';
+import type { VcHeadingLevel } from "./model/heading.model";
 
-export type { VcHeadingLevel } from './model/heading.model';
+export type { VcHeadingLevel } from "./model/heading.model";
 
 /** Semantic heading component that keeps typography consistent. */
 @Component({
-  selector: 'vc-heading',
+  selector: "vc-heading",
   standalone: true,
-  templateUrl: './heading.component.html',
-  styleUrls: ['./heading.component.scss'],
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: "./heading.component.html",
+  styleUrls: ["./heading.component.scss"],
+  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VcHeadingComponent {
   /** Semantic heading level rendered in the template. */

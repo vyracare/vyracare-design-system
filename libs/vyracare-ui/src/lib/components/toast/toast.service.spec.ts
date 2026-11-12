@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { VcToastService } from './toast.service';
 
@@ -23,13 +23,15 @@ describe('VcToastService', () => {
     expect(service.toasts()).toEqual([]);
   });
 
-  it('dismisses a toast automatically after its duration', fakeAsync(() => {
+  it('dismisses a toast automatically after its duration', () => {
+    jest.useFakeTimers();
     service.error('Falha', undefined, 1000);
     expect(service.toasts()).toHaveLength(1);
 
-    tick(1000);
+    jest.advanceTimersByTime(1000);
     expect(service.toasts()).toHaveLength(0);
-  }));
+    jest.useRealTimers();
+  });
 
   it('supports warning, error and informational shortcuts and clears all messages', () => {
     service.warning('Atencao', 'Revise os dados', 0);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 
 import {
   VcDateComponent,
@@ -10,12 +10,12 @@ import {
   VcPhoneInputComponent,
   VcPostalCodeInputComponent,
   VcSearchComponent,
-  VcTextComponent
-} from '@vyracare/design-system';
+  VcTextComponent,
+} from "@vyracare/design-system";
 
 /** Playground page that demonstrates form controls and Angular Forms-ready inputs. */
 @Component({
-  selector: 'playground-forms-page',
+  selector: "playground-forms-page",
   standalone: true,
   imports: [
     VcDateComponent,
@@ -27,16 +27,17 @@ import {
     VcPhoneInputComponent,
     VcPostalCodeInputComponent,
     VcSearchComponent,
-    VcTextComponent
+    VcTextComponent,
   ],
-  templateUrl: './forms-page.component.html',
-  styleUrls: ['./forms-page.component.scss']
+  templateUrl: "./forms-page.component.html",
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrls: ["./forms-page.component.scss"],
 })
 export class FormsPageComponent {
   /** Select options used to demonstrate specialty selection. */
   specialties = [
-    { label: 'Cardiologia', value: 'cardio' },
-    { label: 'Pediatria', value: 'pediatria' },
-    { label: 'Clinica geral', value: 'clinica' }
+    { label: "Cardiologia", value: "cardio" },
+    { label: "Pediatria", value: "pediatria" },
+    { label: "Clinica geral", value: "clinica" },
   ];
 }

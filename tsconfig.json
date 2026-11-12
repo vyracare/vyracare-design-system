@@ -1,10 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "module": "ES2020",
-    "moduleResolution": "Node",
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "useDefineForClassFields": false,
+    "esModuleInterop": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -12,7 +14,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "importHelpers": true,
-    "downlevelIteration": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -20,7 +21,7 @@
     "skipLibCheck": true,
     "types": ["node", "jest"],
     "paths": {
-      "@vyracare/design-system": ["libs/vyracare-ui/src/public-api.ts"]
+      "@vyracare/design-system": ["./libs/vyracare-ui/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {
