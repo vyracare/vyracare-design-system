@@ -16,6 +16,7 @@ export type { VcSidebarGroup, VcSidebarItem, VcSidebarSupport } from './model/si
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VcSidebarComponent {
+  private readonly expandedItems = new Set<string>();
   /** Grouped navigation items rendered inside the sidebar. */
   @Input() groups: VcSidebarGroup[] = [];
   /** Active item identifier used to highlight the current section. */
@@ -28,11 +29,26 @@ export class VcSidebarComponent {
 
   /** Whether the item should be rendered as active. */
   isActive(item: VcSidebarItem): boolean {
-    return item.id === this.activeItemId || !!item.active;
+    return item.id === this.activeItemId
+      || !!item.active
+      || !!item.children?.some(child => child.id === this.activeItemId || this.activeItemId.startsWith(`${child.id}/`));
+  }
+
+  /** Whether an item owns an expandable second navigation level. */
+  hasChildren(item: VcSidebarItem): boolean { return !!item.children?.length; }
+
+  /** Keeps the active branch visible and respects explicit user expansion. */
+  isExpanded(item: VcSidebarItem): boolean {
+    return this.expandedItems.has(item.id)
+      || !!item.children?.some(child => child.id === this.activeItemId || this.activeItemId.startsWith(`${child.id}/`));
   }
 
   /** Emits the selected sidebar item. */
   selectItem(item: VcSidebarItem): void {
+    if (this.hasChildren(item)) {
+      this.expandedItems.has(item.id) ? this.expandedItems.delete(item.id) : this.expandedItems.add(item.id);
+      return;
+    }
     this.itemSelected.emit(item);
   }
 }

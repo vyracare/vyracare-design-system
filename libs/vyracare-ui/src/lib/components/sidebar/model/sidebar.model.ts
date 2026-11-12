@@ -8,6 +8,8 @@ export type VcSidebarItem = {
   icon?: string;
   /** Initial active visual state. */
   active?: boolean;
+  /** Optional second-level actions displayed as an expandable submenu. */
+  children?: VcSidebarItem[];
 };
 
 /** Labeled group of items rendered by the sidebar component. */

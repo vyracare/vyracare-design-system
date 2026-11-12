@@ -18,7 +18,8 @@ describe('VcSidebarComponent', () => {
         label: 'Area Clinica',
         items: [
           { id: 'dashboard', label: 'Dashboard', active: true },
-          { id: 'agenda', label: 'Agenda' }
+          { id: 'agenda', label: 'Agenda' },
+          { id: 'finance', label: 'Financeiro', children: [{ id: 'finance/overview', label: 'Visao geral' }] }
         ]
       }
     ];
@@ -34,8 +35,25 @@ describe('VcSidebarComponent', () => {
     fixture.detectChanges();
 
     const buttons = fixture.nativeElement.querySelectorAll('.vc-sidebar__item');
-    expect(buttons.length).toBe(2);
+    expect(buttons.length).toBe(3);
     expect(fixture.nativeElement.textContent).toContain('Area Clinica');
+  });
+
+  it('expands a parent and emits its selected child', () => {
+    const itemSpy = jest.fn();
+    component.itemSelected.subscribe(itemSpy);
+    const finance = component.groups[0].items[2];
+    component.selectItem(finance);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Visao geral');
+    component.selectItem(finance.children![0]);
+    expect(itemSpy).toHaveBeenCalledWith(finance.children![0]);
+  });
+
+  it('keeps the active submenu branch expanded', () => {
+    component.activeItemId = 'finance/overview';
+    fixture.detectChanges();
+    expect(component.isExpanded(component.groups[0].items[2])).toBe(true);
   });
 
   it('highlights the active item', () => {

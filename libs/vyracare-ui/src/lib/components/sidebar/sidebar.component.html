@@ -8,13 +8,28 @@
           type="button"
           class="vc-sidebar__item"
           [class.is-active]="isActive(item)"
+          [attr.aria-expanded]="hasChildren(item) ? isExpanded(item) : null"
           (click)="selectItem(item)"
         >
           @if (item.icon) {
             <vc-icon [name]="item.icon" size="sm" [decorative]="true"></vc-icon>
           }
           <span>{{ item.label }}</span>
+          @if (hasChildren(item)) {
+            <vc-icon class="vc-sidebar__chevron" [name]="isExpanded(item) ? 'chevron-up' : 'chevron-down'" size="sm" [decorative]="true"></vc-icon>
+          }
         </button>
+
+        @if (hasChildren(item) && isExpanded(item)) {
+          <div class="vc-sidebar__submenu">
+            @for (child of item.children; track child.id) {
+              <button type="button" class="vc-sidebar__subitem" [class.is-active]="isActive(child)" (click)="selectItem(child)">
+                @if (child.icon) {<vc-icon [name]="child.icon" size="sm" [decorative]="true"></vc-icon>}
+                <span>{{ child.label }}</span>
+              </button>
+            }
+          </div>
+        }
       }
     </div>
   }
