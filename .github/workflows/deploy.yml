@@ -77,7 +77,7 @@ jobs:
           NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
           NPM_CONFIG_PRODUCTION: 'false'
           NPM_CONFIG_OMIT: ''
-        run: npm ci --legacy-peer-deps --include=dev --omit=optional --omit=peer
+        run: npm ci --legacy-peer-deps --include=dev --omit=peer
 
       - name: Run unit tests
         working-directory: ${{ steps.resolve.outputs.workdir }}
@@ -308,7 +308,7 @@ jobs:
           NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
           NPM_CONFIG_PRODUCTION: 'false'
           NPM_CONFIG_OMIT: ''
-        run: npm ci --legacy-peer-deps --include=dev --omit=optional --omit=peer
+        run: npm ci --legacy-peer-deps --include=dev --omit=peer
 
       - name: Resolve latest published version
         id: published_version
